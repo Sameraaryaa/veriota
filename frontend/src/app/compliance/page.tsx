@@ -249,14 +249,14 @@ export default function CompliancePage() {
                 <div className="p-3 font-mono text-[10px] text-emerald-400 uppercase border-l border-slate-800">ML-DSA-65 (m4f)</div>
               </div>
               {[
-                { metric: "Verify Cycles", key: "verify_cycles", format: (v: number) => `${(v / 1_000_000).toFixed(1)}M` },
-                { metric: "Verify Time", key: "verify_time_ms", format: (v: number) => `${v} ms` },
-                { metric: "Sign Cycles", key: "sign_cycles", format: (v: number) => `${(v / 1_000_000).toFixed(1)}M` },
-                { metric: "Sign Time", key: "sign_time_ms", format: (v: number) => `${v} ms` },
-                { metric: "Signature Size", key: "signature_bytes", format: (v: number) => `${v} bytes` },
-                { metric: "Public Key Size", key: "public_key_bytes", format: (v: number) => `${v} bytes` },
-                { metric: "Stack Usage", key: "stack_usage_bytes", format: (v: number) => `${v} bytes` },
-                { metric: "Quantum Safe?", key: "quantum_safe", format: (v: boolean) => v ? "✅ YES" : "❌ NO" },
+                { metric: "Verify Cycles", key: "verify_cycles", format: (v: any) => `${(v / 1_000_000).toFixed(1)}M` },
+                { metric: "Verify Time", key: "verify_time_ms", format: (v: any) => `${v} ms` },
+                { metric: "Sign Cycles", key: "sign_cycles", format: (v: any) => `${(v / 1_000_000).toFixed(1)}M` },
+                { metric: "Sign Time", key: "sign_time_ms", format: (v: any) => `${v} ms` },
+                { metric: "Signature Size", key: "signature_bytes", format: (v: any) => `${v} bytes` },
+                { metric: "Public Key Size", key: "public_key_bytes", format: (v: any) => `${v} bytes` },
+                { metric: "Stack Usage", key: "stack_usage_bytes", format: (v: any) => `${v} bytes` },
+                { metric: "Quantum Safe?", key: "quantum_safe", format: (v: any) => v ? "✅ YES" : "❌ NO" },
               ].map((row, i) => {
                 const algos = benchmarks.algorithms || {};
                 const rsa = algos["RSA-2048"] || {};

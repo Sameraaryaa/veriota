@@ -40,6 +40,26 @@
     0%,100% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
     50% { opacity: 0.7; transform: translate(-50%,-50%) scale(1.05); }
   }
+  .log-panel {
+    position: fixed; right: 16px; z-index: 10;
+    width: 280px; overflow: hidden;
+    background: rgba(2, 10, 6, 0.85); border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 6px; padding: 10px;
+    font-size: 9px; color: #6b7280; text-shadow: 0 0 1px #000;
+    backdrop-filter: blur(4px);
+  }
+  .log-title { font-size: 10px; color: #34d399; margin-bottom: 6px; border-bottom: 1px solid rgba(16, 185, 129, 0.3); padding-bottom: 4px; letter-spacing: 1px; }
+  .log-panel ul { list-style: none; display: flex; flex-direction: column; overflow: hidden; }
+  .log-panel li { margin-bottom: 3px; white-space: nowrap; font-family: monospace; }
+  #net-log { top: 120px; height: 200px; }
+  #can-log { bottom: 16px; height: 160px; }
+  .l-time { color: #4b5563; margin-right: 4px; }
+  .l-proto { color: #f59e0b; margin-right: 4px; width: 45px; display: inline-block; }
+  .l-ip { color: #60a5fa; }
+  .l-rx { color: #34d399; width: 30px; display: inline-block; font-weight: bold;}
+  .l-tx { color: #818cf8; width: 30px; display: inline-block; font-weight: bold;}
+  .l-alert { color: #ef4444 !important; font-weight: bold; background: rgba(239, 68, 68, 0.1); }
+  .l-hex { color: #d1d5db; }
 </style>
 </head>
 <body>
@@ -78,6 +98,14 @@
   <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div> OTA Update In Transit</div>
 </div>
 <div id="alert-banner"></div>
+<div id="net-log" class="log-panel">
+  <div class="log-title">LIVE PACKET CAPTURE (SOC ↔ EDGE)</div>
+  <ul id="net-list"></ul>
+</div>
+<div id="can-log" class="log-panel">
+  <div class="log-title">CAN BUS TRAFFIC (VEHICLE NETWORK)</div>
+  <ul id="can-list"></ul>
+</div>
 <canvas id="c"></canvas>
 
 <script>
@@ -325,6 +353,18 @@ async function pollFleet() {
         // Detect status change → show alert
         if (oldStatus && oldStatus === 'QUANTUM_SAFE' && node.status !== 'QUANTUM_SAFE') {
           showAlert(node.id, node.status);
+          
+          // Inject high-severity packets into logs
+          const reason = node.status === 'TAMPERED' ? 'MERKLE_MISMATCH' : 'ROLLBACK_FAILED';
+          addNetLog(`ALERT! UNAUTHORIZED OTA REQUEST [${reason}] → ${node.id}`, true);
+          addNetLog(`BLOCKED CONNECTION [${node.status}] FROM UNKNOWN IP`, true);
+          
+          let alertCanId = '0x7DF';
+          for(let i=0; i<10; i++) {
+             setTimeout(() => addCanLog(`${alertCanId}  8  02 27 01 00 00 00 00 00`, "CRIT"), i*40);
+             setTimeout(() => addCanLog(`0x7E8  8  03 7F 27 35 00 00 00 00`, "ERR "), i*40 + 20); // 35: invalid key
+          }
+
           // Spawn red particles toward this node
           connections.forEach(conn => {
             const idx = nodes.indexOf(node);
@@ -390,6 +430,41 @@ function animate() {
   drawNodes();
   requestAnimationFrame(animate);
 }
+
+// Simulation Logic for Logs
+function addNetLog(msg, isAlert=false) {
+  const el = document.getElementById('net-list');
+  const li = document.createElement('li');
+  if (isAlert) li.className = 'l-alert';
+  li.innerHTML = `<span class="l-time">${new Date().toISOString().slice(11,19)}</span> ${msg}`;
+  el.insertBefore(li, el.firstChild);
+  if (el.children.length > 12) el.removeChild(el.lastChild);
+}
+
+function addCanLog(msg, type="RX ") {
+  const el = document.getElementById('can-list');
+  const li = document.createElement('li');
+  const typeClass = type.trim() === "RX" ? "l-rx" : type.trim() === "TX" ? "l-tx" : "l-alert";
+  li.innerHTML = `<span class="l-time">${new Date().toISOString().slice(11,23)}</span> <span class="${typeClass}">[${type}]</span> <span class="l-hex">${msg}</span>`;
+  el.insertBefore(li, el.firstChild);
+  if (el.children.length > 10) el.removeChild(el.lastChild);
+}
+
+setInterval(() => {
+  if(Math.random() > 0.4) {
+     const ports = [443, 8001, 3001, 49152];
+     const proto = Math.random() > 0.7 ? "TLSv1.3" : "TCP";
+     const ipFrom = `192.168.1.${Math.floor(Math.random()*200)+20}`;
+     const ipTo = `10.0.0.${Math.floor(Math.random()*15)+1}`;
+     const payload = Math.random() > 0.8 ? "/api/fleet/sync" : "/ota/health_check";
+     addNetLog(`<span class="l-proto">${proto}</span> <span class="l-ip">${ipFrom}</span> → <span class="l-ip">${ipTo}</span> <span style="color:#9ca3af">${payload}</span>`);
+  }
+  if(Math.random() > 0.3) {
+     const ids = ["0x028", "0x1A4", "0x2B0", "0x3C2", "0x4FA"];
+     const data = Array.from({length:8}, () => Math.floor(Math.random()*256).toString(16).padStart(2,'0').toUpperCase()).join(' ');
+     addCanLog(`${ids[Math.floor(Math.random()*ids.length)]}  8  ${data}`, Math.random()>0.5?"RX ":"TX ");
+  }
+}, 400);
 
 // Start
 pollFleet();
