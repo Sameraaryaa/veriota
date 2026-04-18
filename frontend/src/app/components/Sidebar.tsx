@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { href: '/attacks',    label: 'Cyber Warfare Sim',    icon: '⚔️', desc: 'Launch tamper & rollback attacks' },
   { href: '/comparison', label: 'Algorithm Compare',    icon: '⚡', desc: 'RSA-2048 vs ML-DSA-65 benchmark' },
   { href: '/compliance', label: 'Compliance & Intel',   icon: '📋', desc: 'UNECE R155/R156, ISO 21434, TARA' },
+  { href: '/transparency', label: 'Transparency Log',  icon: '🔗', desc: 'π-seeded append-only hash chain' },
   { href: '/ecu-sim.html',   label: '3D ECU Simulator', icon: '🧠', desc: 'Interactive firmware flash simulation', external: true },
   { href: '/fleet-mesh.html', label: 'Fleet Network Mesh', icon: '🗺️', desc: 'India map with real-time node status', external: true },
 ];

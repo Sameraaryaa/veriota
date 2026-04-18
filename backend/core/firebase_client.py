@@ -102,14 +102,21 @@ def register_firmware_release(version: str, merkle_root: str, merkle_leaves: lis
     _save_db(db)
 
 
-# ── Firmware Transparency Log (Append-Only, Hash-Chained) ────────────────
+# ── Firmware Transparency Log (Append-Only, Hash-Chained, π-Seeded) ───────
 import hashlib as _hashlib
+
+# π-seeded genesis hash — Nothing-Up-My-Sleeve principle
+PI_GENESIS_HASH = _hashlib.sha256(
+    b'VeriOTA Transparency Log v1.0 | \xcf\x80=3.14159265358979323846'
+).hexdigest()
+
 
 def append_to_transparency_log(version: str, firmware_hash: str, merkle_root: str,
                                 signature_hash: str, publisher: str = "OEM_SIGNING_SERVICE"):
     """
     Append a new entry to the transparency log. Each entry is hash-chained
     to the previous one (like a blockchain), making the log tamper-proof.
+    Genesis block is π-seeded (Nothing-Up-My-Sleeve principle).
     Inspired by Google's Certificate Transparency (RFC 6962).
     """
     db = _load_db()
@@ -117,7 +124,7 @@ def append_to_transparency_log(version: str, firmware_hash: str, merkle_root: st
         db["transparency_log"] = []
 
     log = db["transparency_log"]
-    prev_hash = log[-1]["entry_hash"] if log else "GENESIS"
+    prev_hash = log[-1]["entry_hash"] if log else PI_GENESIS_HASH
 
     entry = {
         "sequence": len(log),
@@ -161,14 +168,15 @@ def verify_log_integrity() -> dict:
     """
     Verify the entire transparency log's hash chain integrity.
     If any entry was tampered with, the chain breaks.
+    Uses π-seeded genesis hash.
     """
     db = _load_db()
     log = db.get("transparency_log", [])
     if not log:
-        return {"valid": True, "entries": 0, "message": "Log is empty"}
+        return {"valid": True, "entries": 0, "message": "Log is empty", "genesis_hash": PI_GENESIS_HASH}
 
     for i, entry in enumerate(log):
-        expected_prev = log[i - 1]["entry_hash"] if i > 0 else "GENESIS"
+        expected_prev = log[i - 1]["entry_hash"] if i > 0 else PI_GENESIS_HASH
         if entry["prev_hash"] != expected_prev:
             return {
                 "valid": False,
@@ -176,4 +184,52 @@ def verify_log_integrity() -> dict:
                 "message": f"Hash chain broken at sequence {i}: expected prev_hash {expected_prev[:16]}..., got {entry['prev_hash'][:16]}...",
             }
 
-    return {"valid": True, "entries": len(log), "message": f"All {len(log)} entries verified. Chain intact."}
+    return {"valid": True, "entries": len(log), "message": f"All {len(log)} entries verified. Chain intact.", "genesis_hash": PI_GENESIS_HASH}
+
+
+def verify_inclusion(firmware_hash: str) -> dict:
+    """
+    Verify inclusion of a firmware hash in the transparency log.
+    Returns the entry, its position, and the chain of prev_hashes as an inclusion proof.
+    """
+    db = _load_db()
+    log = db.get("transparency_log", [])
+    for entry in log:
+        if entry["firmware_hash"] == firmware_hash:
+            # Build inclusion proof: chain from genesis to this entry
+            proof_chain = []
+            for j in range(entry["sequence"] + 1):
+                proof_chain.append({
+                    "sequence": log[j]["sequence"],
+                    "entry_hash": log[j]["entry_hash"],
+                    "prev_hash": log[j]["prev_hash"],
+                })
+            return {
+                "found": True,
+                "entry": entry,
+                "position": entry["sequence"],
+                "total_entries": len(log),
+                "inclusion_proof": proof_chain,
+                "genesis_hash": PI_GENESIS_HASH,
+            }
+    return {"found": False, "entry": None, "genesis_hash": PI_GENESIS_HASH}
+
+
+def get_log_root() -> dict:
+    """Return current transparency log root (last entry hash) and π-seeded genesis."""
+    db = _load_db()
+    log = db.get("transparency_log", [])
+    if not log:
+        return {
+            "root_hash": PI_GENESIS_HASH,
+            "total_entries": 0,
+            "genesis_hash": PI_GENESIS_HASH,
+            "message": "Log empty — root is π-seeded genesis hash",
+        }
+    return {
+        "root_hash": log[-1]["entry_hash"],
+        "total_entries": len(log),
+        "genesis_hash": PI_GENESIS_HASH,
+        "first_entry_hash": log[0]["entry_hash"],
+        "last_version": log[-1].get("version", "unknown"),
+    }

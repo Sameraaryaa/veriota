@@ -1,0 +1,716 @@
+{
+  "vehicle_ledger": {
+    "MBZ-EQS-580-001": {
+      "vehicle_id": "MBZ-EQS-580-001",
+      "current_version": "2.1.4",
+      "current_hash": "8762e32c6fab144573e867a6bf3a1d8b6cc1f328fab50a2c31f8b48a8c717a5a",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "9bdcce7c73eec3c16da88f17862c20919cd3262c48d10abca422a34a646db162",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "621d9fd2117bf7367b570c3e34d90f8d16d407922491317acffa6cc6b235ce95",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "8762e32c6fab144573e867a6bf3a1d8b6cc1f328fab50a2c31f8b48a8c717a5a",
+          "installed_at": "2026-04-18T11:15:02.971072+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "MBZ-EQS-580-002": {
+      "vehicle_id": "MBZ-EQS-580-002",
+      "current_version": "2.1.4",
+      "current_hash": "ebb6529aaaa1d1ea006d1a3e8f7681e6185fe588f9876bad4adc335df596f8e2",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "d9b745b6b403be3862973236d5c2a3510b038e31e1ccff4f24fcd6da4d2138c5",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "9231c262508a8103e6156c4e26c9b3a7f70e93846aaa8747ae6c7c1a168317a2",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "ebb6529aaaa1d1ea006d1a3e8f7681e6185fe588f9876bad4adc335df596f8e2",
+          "installed_at": "2026-04-18T11:15:02.971131+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "MBZ-EQS-580-003": {
+      "vehicle_id": "MBZ-EQS-580-003",
+      "current_version": "2.1.4",
+      "current_hash": "b1b2d40e0c2259ad96748bf0b3a3a11c0cae07d88b57cab1d551b8e6a85c390c",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "f25f4218de92aaa6fa9784d74285ab9c07659789dfc451d8da9328825c24d51a",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "26242f954ea92051d05c864c3c5706c1aa157da05944fc976e660f2f7be6d99d",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "b1b2d40e0c2259ad96748bf0b3a3a11c0cae07d88b57cab1d551b8e6a85c390c",
+          "installed_at": "2026-04-18T11:15:02.971143+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "MBZ-EQS-580-004": {
+      "vehicle_id": "MBZ-EQS-580-004",
+      "current_version": "2.1.4",
+      "current_hash": "b5cd57c13a6063ed205fd28c40cd404ac2f038afc53d0d1a6bff64537e98706a",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "90edc915d98428a79ae4bf5c0904891f293bc31ceb38dab4acb975af13adb2cf",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "646626afc7b4310908770cf047ae040df15bd132ccabc10a747da956cf92930c",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "b5cd57c13a6063ed205fd28c40cd404ac2f038afc53d0d1a6bff64537e98706a",
+          "installed_at": "2026-04-18T11:15:02.971156+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "MBZ-EQS-580-005": {
+      "vehicle_id": "MBZ-EQS-580-005",
+      "current_version": "2.1.4",
+      "current_hash": "f7fc860a164c27c09ce3a2312122bbefef43fb1442cbdaf2e0d56224a4a055fe",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "e8b130d31b1cc78cdb2032223283bd336162fc64b31140ba30b195764da9ebfa",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "bf9f57fed9e2176282745a61a8db25a865195d41da41ab38a07a79fc69f50ab5",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "f7fc860a164c27c09ce3a2312122bbefef43fb1442cbdaf2e0d56224a4a055fe",
+          "installed_at": "2026-04-18T11:15:02.971162+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "BMW-i7-xDrive-01": {
+      "vehicle_id": "BMW-i7-xDrive-01",
+      "current_version": "2.1.4",
+      "current_hash": "875b286a607a09653a074a4a7e62a8ad1aa5094648a734fbcc3901a1ff3af458",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "f52170346a8a649b1b38892cbce50b767d458df0c571d0f9488271a8912ca491",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "70140588abd5bbda558efb2e513ab705a9b983fa6aa4af20ca6fa932d8421ecd",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "875b286a607a09653a074a4a7e62a8ad1aa5094648a734fbcc3901a1ff3af458",
+          "installed_at": "2026-04-18T11:15:02.971169+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "BMW-i7-xDrive-02": {
+      "vehicle_id": "BMW-i7-xDrive-02",
+      "current_version": "2.1.4",
+      "current_hash": "2066a4be0eff489a20e36220356119126eff64cf29434aef09d14d3202129a8d",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "e9ee869f81f387af3becfb5d1ccd4caf4980f2023abc5bc0c802794ea697eda5",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "96ad74948a3a738d5d684f4d738c4b3002c6f3f6fc44d263f4d042e2aa46fffd",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "2066a4be0eff489a20e36220356119126eff64cf29434aef09d14d3202129a8d",
+          "installed_at": "2026-04-18T11:15:02.971175+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "BMW-i7-xDrive-03": {
+      "vehicle_id": "BMW-i7-xDrive-03",
+      "current_version": "2.1.4",
+      "current_hash": "94f51d097db44bb774b9e7f3c966e15aa9fb96d854432fa2dc053d584237c543",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "452f87741bd23d087773741fe0699713edd8037b8e8016aa6a7a35ce83553408",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "dc9ce4580c8464827dd8b09e9096450b6e075a9ffc66fcc38e70d78ebdc7c9b3",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "94f51d097db44bb774b9e7f3c966e15aa9fb96d854432fa2dc053d584237c543",
+          "installed_at": "2026-04-18T11:15:02.971180+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "BMW-i7-xDrive-04": {
+      "vehicle_id": "BMW-i7-xDrive-04",
+      "current_version": "2.1.4",
+      "current_hash": "82c5685ccce88d170b5949976c9197feb9ad39be6b3b29ad817bf286fa60bd64",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "099f8cf6349656dedba0c36b7a51646ff52e7ed93af7b1267e385f0c213cbeb1",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "f11f849fd2ee6deafb2fcfc2bc642df02a93466c23a482387f2da88cc6683cae",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "82c5685ccce88d170b5949976c9197feb9ad39be6b3b29ad817bf286fa60bd64",
+          "installed_at": "2026-04-18T11:15:02.971186+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "BMW-i7-xDrive-05": {
+      "vehicle_id": "BMW-i7-xDrive-05",
+      "current_version": "2.1.4",
+      "current_hash": "c24f0a7f68a7e493b756b02f5a02915d42734b37fa679f986199743232247d34",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "3fc626a5c15da408b92873b428d4066cc63260d7ed17c9e20459c4c799e0d924",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "9641290c232459ccbaa02af324b4186d1c0f749ef5b19299628a4a30216a7fc6",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "c24f0a7f68a7e493b756b02f5a02915d42734b37fa679f986199743232247d34",
+          "installed_at": "2026-04-18T11:15:02.971191+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "AUDI-eTron-GT-01": {
+      "vehicle_id": "AUDI-eTron-GT-01",
+      "current_version": "2.1.4",
+      "current_hash": "2414ff90ad8043d4f670a344df647bef619d967b2d57c9c805c36daaa49d0f57",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "b343a681b2c82a1232601e0297225ba70480c38c13198108e1f7dbf1affd3d33",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "5d6adeaf3526940f239f4d58bfe56f252c7e6b780b6faf4a5bd1437ff5b1a4cb",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "2414ff90ad8043d4f670a344df647bef619d967b2d57c9c805c36daaa49d0f57",
+          "installed_at": "2026-04-18T11:15:02.971197+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "AUDI-eTron-GT-02": {
+      "vehicle_id": "AUDI-eTron-GT-02",
+      "current_version": "2.1.4",
+      "current_hash": "7434125d8924f362ca0b243e28d9cb0728fff0e86db782234d412a980cd07b91",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "718ff40c8c23f6ff13a5ba4d00cbe028b94310beaf65a0260e2c94e822ea4b8f",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "9853c2b5f16774ae6409c59584e276e10fda37d88c109aecab5aa971c1100680",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "7434125d8924f362ca0b243e28d9cb0728fff0e86db782234d412a980cd07b91",
+          "installed_at": "2026-04-18T11:15:02.971202+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "AUDI-eTron-GT-03": {
+      "vehicle_id": "AUDI-eTron-GT-03",
+      "current_version": "2.1.4",
+      "current_hash": "db5b08d4f9bd459bae8dadca5403920165a4c8cd6773b64a84d7f133b5ba51f5",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "08aa043dd2512743269591da64711b6b8077b9bda36acb62b44319500b89533d",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "73706341ae16541c1656b37201e40703c89261d20e01643d36aef1ff753ca849",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "db5b08d4f9bd459bae8dadca5403920165a4c8cd6773b64a84d7f133b5ba51f5",
+          "installed_at": "2026-04-18T11:15:02.971208+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "AUDI-eTron-GT-04": {
+      "vehicle_id": "AUDI-eTron-GT-04",
+      "current_version": "2.1.4",
+      "current_hash": "08ae021e6e75a459158c02c7c7a8b55521eb4d065b557e1460fca36e298a000a",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "9ddcd7c8440f7f9cacbd19b04413c3ea9bc545c5e0427b1c610546b8ead737b0",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "583d5e6abf795dd96f6a6aa61e0c36404ad31c646482631235b799f3af1bb274",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "08ae021e6e75a459158c02c7c7a8b55521eb4d065b557e1460fca36e298a000a",
+          "installed_at": "2026-04-18T11:15:02.971213+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "AUDI-eTron-GT-05": {
+      "vehicle_id": "AUDI-eTron-GT-05",
+      "current_version": "2.1.4",
+      "current_hash": "746c2724e8de61425290b6e7f37a38d508980fadc5f37974ad6441d2a9777cc4",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "bd37267c72d0f0a50bfae4a85a1b27a6d3f8af6e449b1b03e867d48dd18a1d7e",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "af16325648626f1653d619c29f6f85710e9fb4efbe4db01ad3ef0d3187773ad8",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "746c2724e8de61425290b6e7f37a38d508980fadc5f37974ad6441d2a9777cc4",
+          "installed_at": "2026-04-18T11:15:02.971218+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "TSLA-ModelS-PD-1": {
+      "vehicle_id": "TSLA-ModelS-PD-1",
+      "current_version": "2.1.4",
+      "current_hash": "c4c015dfd74bc2531aa1a5c02771a7eb5c4cd52383896601e8298b6cd96740bd",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "8142065f058bee6ea2d58cbd77fcbdbcb1c16519e7e562411406aae8b59ee4d5",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "6d8c61c17d5276292d2f92f0f3cc569aa6e88cfe1176a60543ade4814620a11c",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "c4c015dfd74bc2531aa1a5c02771a7eb5c4cd52383896601e8298b6cd96740bd",
+          "installed_at": "2026-04-18T11:15:02.971223+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "TSLA-ModelS-PD-2": {
+      "vehicle_id": "TSLA-ModelS-PD-2",
+      "current_version": "2.1.4",
+      "current_hash": "7e203efd524271c1f386d414adfb229f0748fa51eea916bda684b6fa075a2a4c",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "cd92646516a65d2f946f14f7e2231e7602c46030faff46bfd19a540ecf308427",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "d72bd51c7db6067af301f86c7284f5fc6283e6fb34de9d340f4c3005d7a03640",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "7e203efd524271c1f386d414adfb229f0748fa51eea916bda684b6fa075a2a4c",
+          "installed_at": "2026-04-18T11:15:02.971229+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "TSLA-ModelS-PD-3": {
+      "vehicle_id": "TSLA-ModelS-PD-3",
+      "current_version": "2.1.4",
+      "current_hash": "bc88809f98f06811ced042d00cbdc7cdd3023a0caa4e48994877ef781c80b8a9",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "c886dfde6a46bbe3446743c84f64ed82b54f5fc1ebaea0d0232e816ecb829f21",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "3831e4374dc04299bc4688de8d5f864668aa7e7eec5a9de1eacff0af3368f4bf",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "bc88809f98f06811ced042d00cbdc7cdd3023a0caa4e48994877ef781c80b8a9",
+          "installed_at": "2026-04-18T11:15:02.971234+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "TSLA-ModelS-PD-4": {
+      "vehicle_id": "TSLA-ModelS-PD-4",
+      "current_version": "2.1.4",
+      "current_hash": "e57520cb43c613d68250b2cb519295294f9ce25f2b92d764dc569f5af83fae07",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "19b0ecc87ccc2d3496bb6af9fc1390349c1977244c07160fdf6de211459715ca",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "6f1a10e890a108a91e564c2852c08005f9a3fdd397e8cc166b11ce2c52d84993",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "e57520cb43c613d68250b2cb519295294f9ce25f2b92d764dc569f5af83fae07",
+          "installed_at": "2026-04-18T11:15:02.971239+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "TSLA-ModelS-PD-5": {
+      "vehicle_id": "TSLA-ModelS-PD-5",
+      "current_version": "2.1.4",
+      "current_hash": "d04569d6eb16c01be1acaecc3ae47ba238e505c4785549879cfb110bbc65f4d5",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "17ee0e68c37aae40c7bc85c40569b1092dcac6ad6ff41ae88035c209e7cddd52",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "be85d8aeb72b790b9c2c0036ccc9d4bb146e7201a269ec395ae53d4800d99db1",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "d04569d6eb16c01be1acaecc3ae47ba238e505c4785549879cfb110bbc65f4d5",
+          "installed_at": "2026-04-18T11:15:02.971245+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-007": {
+      "vehicle_id": "VIN-007",
+      "current_version": "1.0.0",
+      "current_hash": "b5cfc97b4f68d79f72bc1a76a77a3e7c75bed068149855440afa1c00b78c716d",
+      "algorithm": "Dilithium3",
+      "status": "TAMPERED",
+      "alerts": [
+        {
+          "type": "TAMPERED",
+          "detail": {
+            "layer_1_pqc": true,
+            "layer_2_merkle": false,
+            "layer_3_ledger": true,
+            "layer_4_transparency": false,
+            "tampered_chunks": 1,
+            "firmware_hash": "bd19fbcb7380a271ba2ac437ece98e4a751eb91616a24b1d6d8e09f71b9d4da0",
+            "detected_at": "2026-04-18T10:28:06.625147+00:00"
+          }
+        },
+        {
+          "type": "TAMPERED",
+          "detail": {
+            "layer_1_pqc": true,
+            "layer_2_merkle": false,
+            "layer_3_ledger": true,
+            "layer_4_transparency": false,
+            "tampered_chunks": 1,
+            "firmware_hash": "bd19fbcb7380a271ba2ac437ece98e4a751eb91616a24b1d6d8e09f71b9d4da0",
+            "detected_at": "2026-04-18T10:43:58.810975+00:00"
+          }
+        }
+      ],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "b5cfc97b4f68d79f72bc1a76a77a3e7c75bed068149855440afa1c00b78c716d",
+          "installed_at": "2026-04-18T09:58:58.590651+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    }
+  },
+  "firmware_releases": {},
+  "transparency_log": [
+    {
+      "sequence": 0,
+      "timestamp": "2026-04-18T09:48:22.001790+00:00",
+      "version": "2.1.4",
+      "firmware_hash": "48967597c6608dd180cf3e0f47e29205c0cc75706cefa01f0fed29722649b626",
+      "merkle_root": "72e24676b637d155723234231f8ffb4c5107676aeeb773f82b04efcbb71727e9",
+      "signature_hash": "aff61fdf25d8d00e7f904a27d6af70fc401c41727fff735a259011596ef3e1b6",
+      "publisher": "OEM_SIGNING_SERVICE",
+      "prev_hash": "9c750fa83d9b65a2529698edbd6ce50458619d9d35eb573c6f411cf447f3d7f4",
+      "entry_hash": "49508dcaec7710b6c57a5e19f86d9469e5ad28d6e4822d90b3a924afe12bd5b4"
+    },
+    {
+      "sequence": 1,
+      "timestamp": "2026-04-18T09:49:48.697452+00:00",
+      "version": "2.2.0",
+      "firmware_hash": "48967597c6608dd180cf3e0f47e29205c0cc75706cefa01f0fed29722649b626",
+      "merkle_root": "72e24676b637d155723234231f8ffb4c5107676aeeb773f82b04efcbb71727e9",
+      "signature_hash": "d054b3fb36d2511d498bcce6d1d358ac2ee1c95a0e4ae036c7edfbf86147e360",
+      "publisher": "OEM_SIGNING_SERVICE",
+      "prev_hash": "49508dcaec7710b6c57a5e19f86d9469e5ad28d6e4822d90b3a924afe12bd5b4",
+      "entry_hash": "7f3c5e94c12b226f3c755eb3123740111bc9f1448d7f4ed7fd40976036ff96c3"
+    },
+    {
+      "sequence": 2,
+      "timestamp": "2026-04-18T09:50:02.436226+00:00",
+      "version": "3.0.0",
+      "firmware_hash": "48967597c6608dd180cf3e0f47e29205c0cc75706cefa01f0fed29722649b626",
+      "merkle_root": "72e24676b637d155723234231f8ffb4c5107676aeeb773f82b04efcbb71727e9",
+      "signature_hash": "0a4ddc5161e73744aa62ce3db211f3aaa36af3cd7423e3f61facbd1eab1c7899",
+      "publisher": "OEM_SIGNING_SERVICE",
+      "prev_hash": "7f3c5e94c12b226f3c755eb3123740111bc9f1448d7f4ed7fd40976036ff96c3",
+      "entry_hash": "e1eb9004d4890f690200112454937da8170f7782fb0e528cd2e8c08cb4714094"
+    },
+    {
+      "sequence": 3,
+      "timestamp": "2026-04-18T09:57:56.228230+00:00",
+      "version": "2.1.4",
+      "firmware_hash": "48967597c6608dd180cf3e0f47e29205c0cc75706cefa01f0fed29722649b626",
+      "merkle_root": "72e24676b637d155723234231f8ffb4c5107676aeeb773f82b04efcbb71727e9",
+      "signature_hash": "fcffc54541127b5c8e645b933e9d50ac7abadd789b447beafcf4f211bdcb7d6d",
+      "publisher": "OEM_SIGNING_SERVICE",
+      "prev_hash": "e1eb9004d4890f690200112454937da8170f7782fb0e528cd2e8c08cb4714094",
+      "entry_hash": "4288e68896144aa5c91757597c0bd90ada53dfc84b581b8ab747095699d49dc9"
+    },
+    {
+      "sequence": 4,
+      "timestamp": "2026-04-18T10:27:15.352366+00:00",
+      "version": "2.1.4",
+      "firmware_hash": "48967597c6608dd180cf3e0f47e29205c0cc75706cefa01f0fed29722649b626",
+      "merkle_root": "72e24676b637d155723234231f8ffb4c5107676aeeb773f82b04efcbb71727e9",
+      "signature_hash": "9eecec9163ec2aba8524c31717f91949c55e227e0f22a6bc503d84401bf242d2",
+      "publisher": "OEM_SIGNING_SERVICE",
+      "prev_hash": "4288e68896144aa5c91757597c0bd90ada53dfc84b581b8ab747095699d49dc9",
+      "entry_hash": "1c2311c53da87169d40ccdd776e3e343e2ac4eaf7f87879da5c890d82d7cf122"
+    },
+    {
+      "sequence": 5,
+      "timestamp": "2026-04-18T10:28:06.419167+00:00",
+      "version": "2.1.4",
+      "firmware_hash": "48967597c6608dd180cf3e0f47e29205c0cc75706cefa01f0fed29722649b626",
+      "merkle_root": "72e24676b637d155723234231f8ffb4c5107676aeeb773f82b04efcbb71727e9",
+      "signature_hash": "da1095bd207d2ce0eef6bb488c1c51b10196f549a74b40446c56d29b1ce777b4",
+      "publisher": "OEM_SIGNING_SERVICE",
+      "prev_hash": "1c2311c53da87169d40ccdd776e3e343e2ac4eaf7f87879da5c890d82d7cf122",
+      "entry_hash": "9c95d64ddca4a75bdfa7145d4e3349d200a2397fd88ac4e12231d5ef93c39ced"
+    },
+    {
+      "sequence": 6,
+      "timestamp": "2026-04-18T10:43:58.513020+00:00",
+      "version": "2.1.4",
+      "firmware_hash": "48967597c6608dd180cf3e0f47e29205c0cc75706cefa01f0fed29722649b626",
+      "merkle_root": "72e24676b637d155723234231f8ffb4c5107676aeeb773f82b04efcbb71727e9",
+      "signature_hash": "6972f2b559e63f583fa9b4eb5add7a1226045150ae558ae8676c57d5fc24ad18",
+      "publisher": "OEM_SIGNING_SERVICE",
+      "prev_hash": "9c95d64ddca4a75bdfa7145d4e3349d200a2397fd88ac4e12231d5ef93c39ced",
+      "entry_hash": "598808c4ded214f2fac7d6f2f6c444f4005c3cdbf253f9c52a3e83b07450ac11"
+    },
+    {
+      "sequence": 7,
+      "timestamp": "2026-04-18T10:44:24.037334+00:00",
+      "version": "2.1.4",
+      "firmware_hash": "48967597c6608dd180cf3e0f47e29205c0cc75706cefa01f0fed29722649b626",
+      "merkle_root": "72e24676b637d155723234231f8ffb4c5107676aeeb773f82b04efcbb71727e9",
+      "signature_hash": "77a69d48d0935292e87011559680eba3a1d96bf3e9cbeee88733a87ba67af7ab",
+      "publisher": "OEM_SIGNING_SERVICE",
+      "prev_hash": "598808c4ded214f2fac7d6f2f6c444f4005c3cdbf253f9c52a3e83b07450ac11",
+      "entry_hash": "78bcb5ed1c8872ba114759c08cae483f2f9b576a4b4af9f1bb211e9037782860"
+    }
+  ]
+}

@@ -25,14 +25,14 @@ else:
     legacy_firmware_hash = hashlib.sha256(b"veriota_legacy_v1.0.0_firmware_seed").hexdigest()
 
 print("=" * 62)
-print("  VeriOTA — Demo Scenario 2: Rollback Attack")
+print("  VeriOTA - Demo Scenario 2: Rollback Attack")
 print("=" * 62)
 print(f"  Target Vehicle : {args.vehicle}")
 print(f"  Backend API    : {args.api}")
 print()
 print("  Context: v1.0.0 has a valid ML-DSA-65 signature (it was")
 print("  legitimate when released in 2024). But it contains CVE-2025-XXXX")
-print("  — a buffer overflow in the TPMS ECU allowing code execution.")
+print("  - a buffer overflow in the TPMS ECU allowing code execution.")
 print()
 
 # Step 1: Confirm vehicle is at v2.1.4
@@ -44,9 +44,9 @@ setup_res = requests.post(f"{args.api}/ledger/update", json={
 }, timeout=30)
 
 if setup_res.status_code == 200:
-    print(f"  ✔ {args.vehicle} confirmed at v2.1.4 (status: QUANTUM_SAFE)")
+    print(f"  [+] {args.vehicle} confirmed at v2.1.4 (status: QUANTUM_SAFE)")
 elif setup_res.status_code == 409:
-    print(f"  ✔ {args.vehicle} is already at or above v2.1.4 (ledger enforced)")
+    print(f"  [+] {args.vehicle} is already at or above v2.1.4 (ledger enforced)")
 else:
     print(f"  Setup: HTTP {setup_res.status_code} — {setup_res.text[:100]}")
 
@@ -67,6 +67,7 @@ rollback_res = requests.post(f"{args.api}/ledger/update", json={
 print("=" * 62)
 if rollback_res.status_code == 409:
     data = rollback_res.json()
+    meta = data.get("meta", {})
     detail = data.get("detail", data)
     print(f"  STATUS            : {detail.get('status', 'ROLLBACK_BLOCKED')}")
     print(f"  Vehicle           : {args.vehicle}")
@@ -74,15 +75,15 @@ if rollback_res.status_code == 409:
     print(f"  Attempted version : {detail.get('attempted_version', '1.0.0')}")
     print(f"  Reason            : {detail.get('reason', 'Version monotonicity violation')}")
     print()
-    print("  ✔ INSTALLATION BLOCKED — CVE-2025-XXXX stays patched.")
-    print("  ✔ Signature was valid. Ledger enforcement is independent of signature.")
+    print("  [+] INSTALLATION BLOCKED - CVE-2025-XXXX stays patched.")
+    print("  [+] Signature was valid. Ledger enforcement is independent of signature.")
 elif rollback_res.status_code == 200:
-    print("  ✘ UNEXPECTED: Rollback APPROVED — check ledger logic!")
+    print("  [-] UNEXPECTED: Rollback APPROVED - check ledger logic!")
 else:
     print(f"  Unexpected response: HTTP {rollback_res.status_code}")
     print(f"  {rollback_res.text[:200]}")
 
 print("=" * 62)
 print()
-print("✔ Demo Scenario 2 complete.")
-print(f"  → Dashboard {args.vehicle} should now be AMBER (ROLLBACK_BLOCKED)")
+print("[+] Demo Scenario 2 complete.")
+print(f"  -> Dashboard {args.vehicle} should now be AMBER (ROLLBACK_BLOCKED)")

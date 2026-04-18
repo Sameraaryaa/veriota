@@ -1,9 +1,9 @@
 {
   "vehicle_ledger": {
-    "VIN-001": {
-      "vehicle_id": "VIN-001",
+    "TATA-Nexon-EV-001": {
+      "vehicle_id": "TATA-Nexon-EV-001",
       "current_version": "2.1.4",
-      "current_hash": "641fa07cc5d7425f7b888ae7ce37a8c2c83ac0748fe5cc1eebfb8cd0194724d1",
+      "current_hash": "4a05016d212d11d2c30c781f845cf8add4a0bdde01187b970921083468325abe",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -11,28 +11,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "bd6434faf79e07e5b781d0e8e7eb57ba1b04708930342975606abca5f531737f",
+          "firmware_hash": "5b97b7291fbbdd98dda2299c2b8846c3900ad3ac205e16620dd796ebb88ae68d",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "9b22c593372b24c5515c3c0528ca1c18f5bce146372719bb6bf7ecd9ede06a89",
+          "firmware_hash": "ef0049eafc528d5a9de44b60c0c93f8588977f3f3ba2a6a8c9b46de3b706eef3",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "641fa07cc5d7425f7b888ae7ce37a8c2c83ac0748fe5cc1eebfb8cd0194724d1",
-          "installed_at": "2026-04-17T20:58:21.162675+00:00",
+          "firmware_hash": "4a05016d212d11d2c30c781f845cf8add4a0bdde01187b970921083468325abe",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-002": {
-      "vehicle_id": "VIN-002",
+    "TATA-Nexon-EV-002": {
+      "vehicle_id": "TATA-Nexon-EV-002",
       "current_version": "2.1.4",
-      "current_hash": "3a271b3c8a252d85df8135644a512737be4ca2692c47f3ae7abcb8158959db3a",
+      "current_hash": "271d1aaa63d7570a99fc88bd8216f62e1957d94291c375381c0239408ff0541c",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -40,28 +40,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "c519c7d201c80c758f7b9e143475f5f8690453c931776e4f50d015957882de05",
+          "firmware_hash": "50634f11fe9d645525feddd095d97c4ced2d8588c3783472d5853a2343bad450",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "d527015c02be2a27e3ad705f7705d428e316430d8155c58fa0e28e088f9ecf36",
+          "firmware_hash": "376476a4c11953073d307178218a82d370dd139dc90390951c8dcdeb24877edf",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "3a271b3c8a252d85df8135644a512737be4ca2692c47f3ae7abcb8158959db3a",
-          "installed_at": "2026-04-17T20:58:21.162739+00:00",
+          "firmware_hash": "271d1aaa63d7570a99fc88bd8216f62e1957d94291c375381c0239408ff0541c",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-003": {
-      "vehicle_id": "VIN-003",
+    "TATA-Nexon-EV-003": {
+      "vehicle_id": "TATA-Nexon-EV-003",
       "current_version": "2.1.4",
-      "current_hash": "eb07105cafa5403b728ec6dabdcb5c9069501dd9fb9f4349bd2e960be1f73932",
+      "current_hash": "1be4a518aa9baa291c9814104b897a201d286d7094410a12f46ca534b3dda47a",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -69,28 +69,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "9a7af82f5c6b6fd2c9b0d94a10d1c8a27c0441a9502fb246c0f59af228437670",
+          "firmware_hash": "94e56b49f0c14b010b3bde48b16a9a70877024fa3893a16d5c4fc67237434ca8",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "2b35391bc23fa5b2f1ca8d4ecd0040918a0cba0ab5aaa07a006943fe157417be",
+          "firmware_hash": "46c260f3c6c807013d9aad66ef9b1c9b8b9c359af1b048c17d2cfb64f0c1d92b",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "eb07105cafa5403b728ec6dabdcb5c9069501dd9fb9f4349bd2e960be1f73932",
-          "installed_at": "2026-04-17T20:58:21.162751+00:00",
+          "firmware_hash": "1be4a518aa9baa291c9814104b897a201d286d7094410a12f46ca534b3dda47a",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-004": {
-      "vehicle_id": "VIN-004",
+    "TATA-Nexon-EV-004": {
+      "vehicle_id": "TATA-Nexon-EV-004",
       "current_version": "2.1.4",
-      "current_hash": "ede71057eea8b8417fbdc18761caaadecbd2d1c5d099f339b8d95ac2ad107d1e",
+      "current_hash": "71112f4cbc03ede85ddd65a2f479da5f68862e17c49ca0def38c24d789cef954",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -98,28 +98,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "dc69cc58ec7eac376a581ef7bea730f14c659edb0e193003cfed07c343e04680",
+          "firmware_hash": "792e1891cc0067b8c5bebd64d82ccf743b09d8427c4d5fa5b5c11bbf5d6631c8",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "95247d7a01b51c4ada64fd27aac7e135bf8733d162adcd664e97a80a88e4359b",
+          "firmware_hash": "b6111ee0791acf2c38765fdf83def50571a407258ca52c419fcad8d747499bc3",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "ede71057eea8b8417fbdc18761caaadecbd2d1c5d099f339b8d95ac2ad107d1e",
-          "installed_at": "2026-04-17T20:58:21.162759+00:00",
+          "firmware_hash": "71112f4cbc03ede85ddd65a2f479da5f68862e17c49ca0def38c24d789cef954",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-005": {
-      "vehicle_id": "VIN-005",
+    "TATA-Nexon-EV-005": {
+      "vehicle_id": "TATA-Nexon-EV-005",
       "current_version": "2.1.4",
-      "current_hash": "36aebaeb0cf2ebfaa3782dffd2885b5bc5c8d42a4bb89d8bb8cf2d17169a618f",
+      "current_hash": "202f09872b10bba230dba2445a5ea99a18ca58ffc7fcaaab381b14226913b2c4",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -127,28 +127,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "d033b1a50a8061b64de4014b4884382294887d42118c294d0a240fcfc2a8b30d",
+          "firmware_hash": "e96a9d47e4cac3f429c448740930039753a6876bf4bd3cfe177d74bb1f328158",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "2ff304a897b2867a726d4163e420753f26bb2c202efa4b3a8bbebb0953028d88",
+          "firmware_hash": "8b4ff28e9a72928ca4428d0a2b10a7b4580f87bba669b8cf08f834d85d27c42e",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "36aebaeb0cf2ebfaa3782dffd2885b5bc5c8d42a4bb89d8bb8cf2d17169a618f",
-          "installed_at": "2026-04-17T20:58:21.162766+00:00",
+          "firmware_hash": "202f09872b10bba230dba2445a5ea99a18ca58ffc7fcaaab381b14226913b2c4",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-006": {
-      "vehicle_id": "VIN-006",
+    "TATA-Harrier-EV-01": {
+      "vehicle_id": "TATA-Harrier-EV-01",
       "current_version": "2.1.4",
-      "current_hash": "2df91adede2739c54761b108411b80408597b9933ac603b82a51edb985c805a7",
+      "current_hash": "f8aba03d13f8ebb9089a28f13ba04a0e310c094714f90d17c8b1d7fc47d1edeb",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -156,28 +156,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "cbf817ed6a0a0df260a9cbedec1fc8f202997ea43f2a866530273a25a31d0e43",
+          "firmware_hash": "722755ec52d6dbe36ed538364538b3abb469c39331d5a89c1eb67a2c2a140a9c",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "1bdf1ee109387640e550c9f4bac9d9298a031c8499373bca7f1991a2fcc7ca5a",
+          "firmware_hash": "1ad1039aab7e294a9d570f3bd4debc8e389dd707894a8388f460a9aee9477d68",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "2df91adede2739c54761b108411b80408597b9933ac603b82a51edb985c805a7",
-          "installed_at": "2026-04-17T20:58:21.162774+00:00",
+          "firmware_hash": "f8aba03d13f8ebb9089a28f13ba04a0e310c094714f90d17c8b1d7fc47d1edeb",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-007": {
-      "vehicle_id": "VIN-007",
+    "TATA-Harrier-EV-02": {
+      "vehicle_id": "TATA-Harrier-EV-02",
       "current_version": "2.1.4",
-      "current_hash": "176b62e55f09cffc6f6a30403aefaebd9bbbe67502ca1d9d2b28edb166e7e805",
+      "current_hash": "054a0961a9fc79f75f2a47b59cf056b374909eb7b2d8382efef0913938234cdf",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -185,28 +185,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "d6a1c962d68396ddc42c76c0b4e1dbbca6f7c19a2f3c48a2d35a0db7f19f9428",
+          "firmware_hash": "039288839177865317d61cc5cd35a1ac4a81557be84686024d5e28efbe54ca92",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "d2f3d6f594b845618a007212a774e1ff4a0966602b1e966a842428bcd9045c15",
+          "firmware_hash": "7457d560cf59a21e10441f4a7edf63098ffa48fd1278c5e34e83adf944e0e97f",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "176b62e55f09cffc6f6a30403aefaebd9bbbe67502ca1d9d2b28edb166e7e805",
-          "installed_at": "2026-04-17T20:58:21.162784+00:00",
+          "firmware_hash": "054a0961a9fc79f75f2a47b59cf056b374909eb7b2d8382efef0913938234cdf",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-008": {
-      "vehicle_id": "VIN-008",
+    "TATA-Harrier-EV-03": {
+      "vehicle_id": "TATA-Harrier-EV-03",
       "current_version": "2.1.4",
-      "current_hash": "540447c5140eb081e86d7d75e21b0ad333ae51c7d80ff2c9810dcea5f703d5c5",
+      "current_hash": "7e6b4c333b0fad7bf534501f8ac5d6858bf782208478157b972d652ef01ee286",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -214,28 +214,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "6442641f5b8378dd1b43fd65a1bb1870568e9e9f86bf73f8f779aa8dab2155be",
+          "firmware_hash": "31f31a42d477b24b930d1c373f71aab13c45b9f4b04b17f0d87c9b3b2d7b7f84",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "005550a853b302554e1b31ff6ef521935ec30e839c3d28e8c95061def244bd72",
+          "firmware_hash": "48082e3129569b979fd3216896055024c4052dbc9bb7be9854da9490b07b3287",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "540447c5140eb081e86d7d75e21b0ad333ae51c7d80ff2c9810dcea5f703d5c5",
-          "installed_at": "2026-04-17T20:58:21.162791+00:00",
+          "firmware_hash": "7e6b4c333b0fad7bf534501f8ac5d6858bf782208478157b972d652ef01ee286",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-009": {
-      "vehicle_id": "VIN-009",
+    "TATA-Harrier-EV-04": {
+      "vehicle_id": "TATA-Harrier-EV-04",
       "current_version": "2.1.4",
-      "current_hash": "3b209632cffcf0fbd22277c1553e7efb1a03017ac3c4c76ab7c5a023e8282c9d",
+      "current_hash": "398f057db3ad0bf4e7cb35da1d91a2953591523f33ebe380779081fce1ba28a1",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -243,28 +243,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "4ccaaf93d48fadf9ae83f5645c1ab0bd19484093e00457fab4b4fd550753a1e9",
+          "firmware_hash": "0062f5f68099f8de80d9aa142a3e23bff133dfd39a2c29e738d3e2610f9cc198",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "4d38831916696e489af295791a5ca492546e19e5c02241f34be5a2fb729ab618",
+          "firmware_hash": "b649991e5e4355ea91d83496e4cd2a4cc41e141b60aaceaa0bdbe432cb445f38",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "3b209632cffcf0fbd22277c1553e7efb1a03017ac3c4c76ab7c5a023e8282c9d",
-          "installed_at": "2026-04-17T20:58:21.162797+00:00",
+          "firmware_hash": "398f057db3ad0bf4e7cb35da1d91a2953591523f33ebe380779081fce1ba28a1",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-010": {
-      "vehicle_id": "VIN-010",
+    "TATA-Harrier-EV-05": {
+      "vehicle_id": "TATA-Harrier-EV-05",
       "current_version": "2.1.4",
-      "current_hash": "ee6ed37aaf2d9245c0d870ba277b62965a11d7f59dda216922984ff89aaa610a",
+      "current_hash": "b1eac1afd0e7a5b8cbc878de7ce15bc6d9574420cd0145469db341ef82434fd2",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -272,28 +272,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "04122c3bc4fbc9620df0f80c444a45fda4dbb4dfa91a24e8e73b96b7ba84f559",
+          "firmware_hash": "3ac4523af6b17ac3d1344481de6f637a9d4c9268de866b4f753dd71df73b5f15",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "863d31e67e5f281c9a529ab51171e7ddc84be1aca2a711b7056447067aef458c",
+          "firmware_hash": "90793b6ef656b6c8917381febc60c0c1c6795ab72b884944e0f9c12e0b45f56f",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "ee6ed37aaf2d9245c0d870ba277b62965a11d7f59dda216922984ff89aaa610a",
-          "installed_at": "2026-04-17T20:58:21.162806+00:00",
+          "firmware_hash": "b1eac1afd0e7a5b8cbc878de7ce15bc6d9574420cd0145469db341ef82434fd2",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-011": {
-      "vehicle_id": "VIN-011",
+    "TATA-Curvv-EV-01": {
+      "vehicle_id": "TATA-Curvv-EV-01",
       "current_version": "2.1.4",
-      "current_hash": "813cb7c8ebdf89901a95fc2b731a66070398ebd4e0b5139c3d5d3b9e411b94f9",
+      "current_hash": "edd0bda17f49b84e5bece61a7e5d08e93c6e7c204f3f99558ec1efa37815dd0d",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -301,28 +301,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "e14197343766a64deb25649e244f503887484fade2a9956b8b99810e67ce9e5c",
+          "firmware_hash": "04a22da42c07f0804f938452fa3b9cb6b328eebf744aa880d5358b0a9201ca39",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "b7184e8c8ea8c80908a2027fb9bdd6ea2a3262e7ef847a3fcc405bf596bafde8",
+          "firmware_hash": "4c4dfb8cd0f8c624622a2e5b8dc564de02b7244308d27070ab635f68b2457094",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "813cb7c8ebdf89901a95fc2b731a66070398ebd4e0b5139c3d5d3b9e411b94f9",
-          "installed_at": "2026-04-17T20:58:21.162812+00:00",
+          "firmware_hash": "edd0bda17f49b84e5bece61a7e5d08e93c6e7c204f3f99558ec1efa37815dd0d",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-012": {
-      "vehicle_id": "VIN-012",
+    "TATA-Curvv-EV-02": {
+      "vehicle_id": "TATA-Curvv-EV-02",
       "current_version": "2.1.4",
-      "current_hash": "eb9b0f0248ba264fec8948e77ecf14928beb7a7246acf26d8c03813ef59a604c",
+      "current_hash": "e39152d959a349b7d6838817a2b83ab4fe81dd21ed5994aaef39e82753f62de9",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -330,28 +330,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "d003a45d3b3e9000a6e8feb05cc293749c3302d1860ecb05aa327f472ea9b5e4",
+          "firmware_hash": "e8c41c13cb25cab360e7faa410519a6f7e1b13b4ad63dfc279ef12c514fbc796",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "5571984faa6f634b02239a48c3494c7d75acab86a1e6e7c75cdbc804046e0ce6",
+          "firmware_hash": "78094e3621c9de1caa2d10f667f99f1848fcabee6f9cf3e4a7301c1f2bf3b45a",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "eb9b0f0248ba264fec8948e77ecf14928beb7a7246acf26d8c03813ef59a604c",
-          "installed_at": "2026-04-17T20:58:21.162819+00:00",
+          "firmware_hash": "e39152d959a349b7d6838817a2b83ab4fe81dd21ed5994aaef39e82753f62de9",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-013": {
-      "vehicle_id": "VIN-013",
+    "TATA-Curvv-EV-03": {
+      "vehicle_id": "TATA-Curvv-EV-03",
       "current_version": "2.1.4",
-      "current_hash": "7db4eb803e3d6bdedf31aa039849dfca723b82410abfbe1182329aa3d57d5702",
+      "current_hash": "73011d8775e0b87476a32d22b7e33505d1fc1c033f75d6a6efe195fc6f4513ee",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -359,28 +359,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "e5f92c332192034aed05525c5d8ccffcad40085ca1bc20a052845016eedb3cb7",
+          "firmware_hash": "345638f7d0d336d4bcf53d722fa5865da2b9005ac57e3594db54b735ddac4fde",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "e693b2c33d7161aab71fd7bae32587914a82e96914fdac9e20d9dea2ce01e9cd",
+          "firmware_hash": "196e17c419bb0be968fe646bfd479ebb97c731a59f9f8d247736fdbf341a41b3",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "7db4eb803e3d6bdedf31aa039849dfca723b82410abfbe1182329aa3d57d5702",
-          "installed_at": "2026-04-17T20:58:21.162829+00:00",
+          "firmware_hash": "73011d8775e0b87476a32d22b7e33505d1fc1c033f75d6a6efe195fc6f4513ee",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-014": {
-      "vehicle_id": "VIN-014",
+    "TATA-Curvv-EV-04": {
+      "vehicle_id": "TATA-Curvv-EV-04",
       "current_version": "2.1.4",
-      "current_hash": "4bb3274f9e4cd9bfd1b80be4f20529d815c4a54c5a63bba6482d8ce5e4859aee",
+      "current_hash": "12ad5acf69282a5eb50fb95fef28ffeb67404811bd0af95e54886b6c457c5ee4",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -388,28 +388,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "a212eb8aff1a157201fab039fc98b399fdb852dac7a02e889e1f63749c53be72",
+          "firmware_hash": "ad32512b6716e04b379012984c68042ac6954fdd025feae044c8c71c06967015",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "70cb33d86259ff92fdbf4f9333630f6b48bb8809fbd5a8bbb6e95870cfe4f151",
+          "firmware_hash": "989764e29919f03331539c34c49a307672e4723e5264c08a0c26daa3041fa973",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "4bb3274f9e4cd9bfd1b80be4f20529d815c4a54c5a63bba6482d8ce5e4859aee",
-          "installed_at": "2026-04-17T20:58:21.162836+00:00",
+          "firmware_hash": "12ad5acf69282a5eb50fb95fef28ffeb67404811bd0af95e54886b6c457c5ee4",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-015": {
-      "vehicle_id": "VIN-015",
+    "TATA-Curvv-EV-05": {
+      "vehicle_id": "TATA-Curvv-EV-05",
       "current_version": "2.1.4",
-      "current_hash": "5f64e973d0a18e4fdbcca07c200556b525e9c8abe009ae785c6d6532af027415",
+      "current_hash": "e3586062d3d84c54c0557cb9b32d624368c858e67a0bb3a0f3153bb6415d560c",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -417,28 +417,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "f12a3b50d9a8b11edcedf7ba3545c0deeb187cb904f8a4d314b84d68f367a960",
+          "firmware_hash": "88b05dd32d3ec64d96035f4f0ad28d40266a112c533f3f3dde5ecc1324827556",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "f53ed78115b7145fd92cf1f376f092d0cb09d1c7ada9f0a6250f4bdf6c4dced9",
+          "firmware_hash": "8435738e3c2a741267465706c5e93ff0c3bf0dd593fb86033bb9f65aa6c49deb",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "5f64e973d0a18e4fdbcca07c200556b525e9c8abe009ae785c6d6532af027415",
-          "installed_at": "2026-04-17T20:58:21.162845+00:00",
+          "firmware_hash": "e3586062d3d84c54c0557cb9b32d624368c858e67a0bb3a0f3153bb6415d560c",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-016": {
-      "vehicle_id": "VIN-016",
+    "TATA-Punch-EV-01": {
+      "vehicle_id": "TATA-Punch-EV-01",
       "current_version": "2.1.4",
-      "current_hash": "d76abee80e1a06a28b064d2daab65b0ad99aa4112fc14537f7e35cabc54066db",
+      "current_hash": "f381453b2a6de95c9cdc6f88d2cdb4c089c75c1fe7df2fe2fc540935c180459d",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -446,28 +446,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "48e812764006021d0ac6d9435390dee6932b774c268946bce52e1df69313c2af",
+          "firmware_hash": "580ce33c961a7ee08b685634bb3ef7d2a84b2f11f3b4cd465143971e91432b2b",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "71160196617b7b39cc6535010f50a0c0e0a0cdfc2f1e8d2510c4d428d851e10b",
+          "firmware_hash": "9cf43a298b9d0a2690641e694fdb1bf0db3a60b8bb569ef99778cd97dd38e925",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "d76abee80e1a06a28b064d2daab65b0ad99aa4112fc14537f7e35cabc54066db",
-          "installed_at": "2026-04-17T20:58:21.162876+00:00",
+          "firmware_hash": "f381453b2a6de95c9cdc6f88d2cdb4c089c75c1fe7df2fe2fc540935c180459d",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-017": {
-      "vehicle_id": "VIN-017",
+    "TATA-Punch-EV-02": {
+      "vehicle_id": "TATA-Punch-EV-02",
       "current_version": "2.1.4",
-      "current_hash": "95b1e38836e6608ec058b253b894c1c4591bee5f7975db79bb8a1cdf2038f974",
+      "current_hash": "80d4ec30f4f388a40f264b831fec658e59782fb6e7d1e1b427e04d9cce299017",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -475,28 +475,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "0f7575339d56b8a4ceec76a1ad64c6bf79de6025f0b8bb41bd7fed36d5ccb6e9",
+          "firmware_hash": "b51066a6415119c43626b7eea0da8683b748267aeacd928d09eeced9e0572428",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "2613e230a82552cb86cb60c855787d8c71d2f1b5410db3e62711d450283963c0",
+          "firmware_hash": "89f38ec9dd13f3a92d740b54d5e23aa2ee4194836fa3db9e34fb6727a34f7a3f",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "95b1e38836e6608ec058b253b894c1c4591bee5f7975db79bb8a1cdf2038f974",
-          "installed_at": "2026-04-17T20:58:21.162884+00:00",
+          "firmware_hash": "80d4ec30f4f388a40f264b831fec658e59782fb6e7d1e1b427e04d9cce299017",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-018": {
-      "vehicle_id": "VIN-018",
+    "TATA-Punch-EV-03": {
+      "vehicle_id": "TATA-Punch-EV-03",
       "current_version": "2.1.4",
-      "current_hash": "908e5102eaa06875ccde782849b3cd7f8875d2239fed0b6ac164121bb1cb56bf",
+      "current_hash": "3598aac962ea196010871a5e55e3f8f0a23337549cf52ede0e1e30fc41985abe",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -504,28 +504,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "1d7a465ea4025442d178dbb93e6080f7886cf98c25e93fa02bcd096de8ab1c47",
+          "firmware_hash": "cdc92663f496f8a17f912a4c8643c0da2e37e0f18d6e98432f0694b4b4b64fa1",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "8cd8d7e1e7d83cfa9ca76689f348a006254a63a880626b5a0cc2aba8952472a9",
+          "firmware_hash": "335ba3461717e3f1df1ecdeeec31818a79b636d895088cbed26cf82c3fa7453c",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "908e5102eaa06875ccde782849b3cd7f8875d2239fed0b6ac164121bb1cb56bf",
-          "installed_at": "2026-04-17T20:58:21.162891+00:00",
+          "firmware_hash": "3598aac962ea196010871a5e55e3f8f0a23337549cf52ede0e1e30fc41985abe",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-019": {
-      "vehicle_id": "VIN-019",
+    "TATA-Punch-EV-04": {
+      "vehicle_id": "TATA-Punch-EV-04",
       "current_version": "2.1.4",
-      "current_hash": "d1f646e4726130325f31902ac03e92a12e45360a4d0a8076b3a0375d3240e48f",
+      "current_hash": "592216d3107a9ac0da253607db37dbab6a39a314a937eb1dea548930e830383e",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -533,28 +533,28 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "818dd3e7520963451cc45db1a81c65cc3d50d5968ed80a7ddf41f0b6ad12aed7",
+          "firmware_hash": "6613a3759aaa3c7164cb3436485ad9d68b7a32ce3fc1c63c385e8591e96490b9",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "a6c7c9f5a35964e905f20ccf7da73521635f101ab7a8e79c88ba12adfb171966",
+          "firmware_hash": "d7a69e3181859afaa06c6abd396ad2ffc473c237c49960f934ab0cbd048a1073",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "d1f646e4726130325f31902ac03e92a12e45360a4d0a8076b3a0375d3240e48f",
-          "installed_at": "2026-04-17T20:58:21.162898+00:00",
+          "firmware_hash": "592216d3107a9ac0da253607db37dbab6a39a314a937eb1dea548930e830383e",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     },
-    "VIN-020": {
-      "vehicle_id": "VIN-020",
+    "TATA-Punch-EV-05": {
+      "vehicle_id": "TATA-Punch-EV-05",
       "current_version": "2.1.4",
-      "current_hash": "1b250893bb762137bbf1c237d80847407b65b9ade9b5c74ed9ad0e584c1febdb",
+      "current_hash": "e4af345aac8f50570894a2dc5ef3889e6661d6c019463717df5e43c9235e1e35",
       "algorithm": "ML-DSA-65",
       "nist_standard": "FIPS 204",
       "status": "QUANTUM_SAFE",
@@ -562,24 +562,25 @@
       "update_history": [
         {
           "version": "1.0.0",
-          "firmware_hash": "bba751687bbd5ac2684290b1f2e17b3ff9214607c6d3d9f6a0e50254f384805b",
+          "firmware_hash": "4738cfdef4be4c7e07317fb03bfeffb4b1cb6914625e037c257e1f08934e52c1",
           "installed_at": "2024-01-15T10:00:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.0.0",
-          "firmware_hash": "123224f44a0ce9faf5eda6fcd1f53cb08ead7fcf945467e88cea7e7226773cd7",
+          "firmware_hash": "bbe85eb37ee278172a1aca0d7145b088ac8b6886cd2890958d2c5c90ab3c6f38",
           "installed_at": "2025-06-10T14:30:00+00:00",
           "status": "QUANTUM_SAFE"
         },
         {
           "version": "2.1.4",
-          "firmware_hash": "1b250893bb762137bbf1c237d80847407b65b9ade9b5c74ed9ad0e584c1febdb",
-          "installed_at": "2026-04-17T20:58:21.162904+00:00",
+          "firmware_hash": "e4af345aac8f50570894a2dc5ef3889e6661d6c019463717df5e43c9235e1e35",
+          "installed_at": "2026-04-18T11:42:49.591095+00:00",
           "status": "QUANTUM_SAFE"
         }
       ]
     }
   },
-  "firmware_releases": {}
+  "firmware_releases": {},
+  "transparency_log": []
 }

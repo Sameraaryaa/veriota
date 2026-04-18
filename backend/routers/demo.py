@@ -78,7 +78,7 @@ async def _stream_script(script_name: str, args: list) -> StreamingResponse:
 
 
 @router.post("/tamper")
-async def trigger_tamper(vehicle: str = "VIN-007"):
+async def trigger_tamper(vehicle: str = "TATA-Harrier-EV-02"):
     """Stream: Tamper attack on a vehicle — mutates firmware, triggers Merkle failure & Firestore alert."""
     return await _stream_script("tamper_attack.py", [
         "--vehicle", vehicle,
@@ -87,7 +87,7 @@ async def trigger_tamper(vehicle: str = "VIN-007"):
 
 
 @router.post("/rollback")
-async def trigger_rollback(vehicle: str = "VIN-012"):
+async def trigger_rollback(vehicle: str = "TATA-Punch-EV-04"):
     """Stream: Rollback attack — attempts to flash old vulnerable firmware, blocked by version ledger."""
     return await _stream_script("rollback_attack.py", [
         "--vehicle", vehicle,
@@ -99,6 +99,12 @@ async def trigger_rollback(vehicle: str = "VIN-012"):
 async def trigger_hndl():
     """Stream: HNDL simulation — runs RSA vs ML-DSA-65 side-by-side benchmark."""
     return await _stream_script("rsa_comparison.py", [])
+
+
+@router.post("/transparency-bypass")
+async def trigger_transparency_bypass():
+    """Stream: Transparency Log Bypass — shows stolen key attack where Layer 4 catches and rejects."""
+    return await _stream_script("transparency_bypass_demo.py", [])
 
 
 @router.post("/reset")

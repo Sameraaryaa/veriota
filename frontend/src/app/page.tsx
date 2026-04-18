@@ -1,11 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import VehicleCard from "./components/VehicleCard";
 import FleetSummaryBar from "./components/FleetSummaryBar";
 import DemoControlPanel from "./components/DemoControlPanel";
 import LiveThreatFeed, { LogEntry } from "./components/LiveThreatFeed";
-import { Shield, ShieldCheck, Activity, Cpu } from "lucide-react";
+import { Shield, ShieldCheck, Activity, Cpu, Info } from "lucide-react";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
 
@@ -13,6 +13,9 @@ export default function Dashboard() {
   const [vehicles, setVehicles] = useState<any[]>([]);
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [mounted, setMounted] = useState(false);
+  const [cryptoInfo, setCryptoInfo] = useState<any>(null);
+  const prevVehiclesRef = useRef<any[]>([]);
+  const [showPiTooltip, setShowPiTooltip] = useState(false);
   const [summary, setSummary] = useState({
     total: 0,
     quantum_safe: 0,
@@ -40,6 +43,12 @@ export default function Dashboard() {
     addLog("System initialized. VeriOTA SOC Uplink established.", "system");
     addLog("Connecting to Backend Fast-Track API (Bypassing Firebase)...", "info");
 
+    // Fetch crypto info
+    fetch(`${API_URL}/crypto/info`)
+      .then(r => r.json())
+      .then(data => setCryptoInfo(data))
+      .catch(() => {});
+
     let pollInterval = 5000; // 5s default — balances reactivity vs Firestore quota
     let errorCount = 0;
 
@@ -52,40 +61,30 @@ export default function Dashboard() {
         const data = json.vehicles || [];
         errorCount = 0; // Reset on success
         
-        // Alert terminal logic
+        // Detect new compromises by comparing with prevVehiclesRef
         data.forEach((v: any) => {
-          if (v.status === "TAMPERED") {
-            setVehicles(prevVehicles => {
-              const existingTampered = prevVehicles.find(old => old.vehicle_id === v.vehicle_id && old.status === "TAMPERED");
-              if (!existingTampered) {
-                 addLog(`TAMPER DETECTED: Intrusive firmware injected targeting ${v.vehicle_id}. Merkle verification FAILED.`, "attack");
-              }
-              return prevVehicles;
-            });
+          const prev = prevVehiclesRef.current.find(old => old.vehicle_id === v.vehicle_id);
+          
+          if (v.status === "TAMPERED" && (!prev || prev.status !== "TAMPERED")) {
+            addLog(`CRITICAL: Tamper detected on ${v.vehicle_id}. Merkle integrity check FAILED.`, "attack");
           }
-          if (v.status === "ROLLBACK_BLOCKED") {
-            setVehicles(prevVehicles => {
-                 const existingRollback = prevVehicles.find(old => old.vehicle_id === v.vehicle_id && old.status === "ROLLBACK_BLOCKED");
-                 if (!existingRollback) {
-                    addLog(`ROLLBACK BLOCKED: Legacy version push intercepted for ${v.vehicle_id}. Semantic monotonic check FAILED.`, "blocked");
-                 }
-                 return prevVehicles;
-            });
+          if (v.status === "ROLLBACK_BLOCKED" && (!prev || prev.status !== "ROLLBACK_BLOCKED")) {
+            addLog(`SECURITY: Rollback attempt intercepted for ${v.vehicle_id}. Version ledger blocked downgrade.`, "blocked");
           }
         });
 
-        // Use functional state updates where needed, otherwise just set them
+        // Update ref and states
+        prevVehiclesRef.current = data;
         setVehicles(data);
         setSummary(json.fleet_summary || { total: 0, quantum_safe: 0, tampered: 0, rollback_blocked: 0, legacy_rsa: 0 });
         
         setLoading((prevLoading) => {
-          if (prevLoading) addLog("Uplink synchronized. Fleet data streaming live (5s poll).", "system");
+          if (prevLoading) addLog("Uplink synchronized. Fleet data streaming live.", "system");
           return false;
         });
 
       } catch (error: any) {
         errorCount++;
-        // Only log the first error, not every poll failure
         if (errorCount <= 2) {
           addLog(`Uplink Error: ${error.message}`, "attack");
         }
@@ -101,7 +100,7 @@ export default function Dashboard() {
   return (
     <main className="min-h-screen bg-[#020804] text-emerald-50 p-4 md:p-6 font-sans selection:bg-emerald-500/30 overflow-x-hidden">
       {/* Top Header */}
-      <header className="flex flex-col md:flex-row items-center justify-between border-b border-emerald-900/40 pb-4 mb-6 gap-4 relative">
+      <header className="flex flex-col md:flex-row items-center justify-between border-b border-emerald-900/40 pb-4 mb-4 gap-4 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/10 to-transparent pointer-events-none -z-10" />
         <div className="flex items-center gap-3">
           <div className="relative">
@@ -119,7 +118,17 @@ export default function Dashboard() {
           </div>
         </div>
         
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-center">
+          <button
+            onClick={async () => {
+              addLog("Restoring fleet database...", "system");
+              await fetch(`${API_URL}/api/demo/reset`, { method: 'POST' });
+              addLog("All nodes restored to QUANTUM_SAFE baseline.", "info");
+            }}
+            className="px-3 py-1.5 border border-emerald-800 rounded bg-emerald-950/40 text-emerald-500 font-mono text-[9px] hover:bg-emerald-900/40 hover:text-emerald-400 transition-colors tracking-wider uppercase"
+          >
+            Restore Fleet
+          </button>
           <div className="flex flex-col items-end">
             <div className="flex items-center gap-2 text-[10px] font-mono text-emerald-400 uppercase">
               <Activity className="w-3 h-3 animate-pulse" />
@@ -131,6 +140,52 @@ export default function Dashboard() {
           </div>
         </div>
       </header>
+
+      {/* Crypto Info Strip */}
+      {cryptoInfo && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-4 flex flex-wrap items-center gap-2 px-3 py-2 rounded-lg bg-emerald-950/30 border border-emerald-900/30 relative"
+        >
+          <span className="text-[9px] font-mono bg-emerald-900/50 text-emerald-400 px-2 py-0.5 rounded border border-emerald-800">
+            {cryptoInfo.algorithm}
+          </span>
+          <span className="text-[9px] font-mono bg-cyan-900/40 text-cyan-400 px-2 py-0.5 rounded border border-cyan-800">
+            {cryptoInfo.nist_standard}
+          </span>
+          <span className="text-[9px] font-mono bg-orange-900/40 text-orange-400 px-2 py-0.5 rounded border border-orange-800">
+            π-Seeded
+          </span>
+          <span className="text-[9px] font-mono bg-emerald-900/40 text-emerald-300 px-2 py-0.5 rounded border border-emerald-700">
+            ✓ Quantum-Safe
+          </span>
+          <span className="text-[9px] font-mono text-slate-600 mx-1">|</span>
+          <span className="text-[9px] font-mono text-slate-500">
+            L{cryptoInfo.security_level} • {cryptoInfo.quantum_security_bits}-bit quantum • {cryptoInfo.signature_bytes}B sig
+          </span>
+          <div className="relative ml-auto">
+            <button
+              onMouseEnter={() => setShowPiTooltip(true)}
+              onMouseLeave={() => setShowPiTooltip(false)}
+              className="text-emerald-600 hover:text-emerald-400 transition-colors"
+            >
+              <Info className="w-3.5 h-3.5" />
+            </button>
+            {showPiTooltip && (
+              <div className="absolute right-0 top-6 w-72 p-3 bg-slate-950 border border-emerald-900/50 rounded-lg shadow-xl z-50">
+                <p className="text-[9px] font-mono text-emerald-400 mb-1">π-Seeded Domain Separation</p>
+                <p className="text-[8px] font-mono text-slate-400 leading-relaxed">
+                  {cryptoInfo.why_pi}
+                </p>
+                <p className="text-[8px] font-mono text-orange-400 mt-2">
+                  π = {cryptoInfo.pi_digits?.slice(0, 30)}...
+                </p>
+              </div>
+            )}
+          </div>
+        </motion.div>
+      )}
 
       {/* 3-Pane Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

@@ -1,17 +1,30 @@
 """
-VeriOTA — Merkle Tree Engine
+VeriOTA — Merkle Tree Engine (π-Domain Separated)
 Provides firmware integrity verification with byte-level tamper localization.
 
 Key properties:
 - 4KB chunk size (matches ARM Cortex-M4 page size)
-- SHA-256 leaf hashing (128-bit quantum security via Grover's bound)
+- π-seeded SHA-256 leaf hashing (Nothing-Up-My-Sleeve domain separation)
 - O(log N) Merkle proof paths for efficient ECU verification
 - Tamper localization: chunk index + exact byte range
+
+Domain Separation:
+  leaf_hash = SHA256(PI_DOMAIN || chunk_index(4 bytes big-endian) || chunk)
+  PI_DOMAIN = first 32 bytes of the hexadecimal expansion of π
+  This proves the hash constants are not backdoored — π is a universal mathematical constant.
 """
 import hashlib
 from typing import List, Dict, Any, Optional
 
 CHUNK_SIZE = 4096  # 4KB — ARM Cortex-M4 memory page boundary
+
+# Nothing-Up-My-Sleeve: first 32 bytes of π in hexadecimal
+# π = 3.14159265358979323846... → hex expansion of the fractional part
+PI_DOMAIN = bytes.fromhex(
+    '243F6A8885A308D313198A2E03707344'
+    'A4093822299F31D0082EFA98EC4E6C89'
+)
+PI_DOMAIN_HEX = PI_DOMAIN.hex()
 
 
 def sha256(data: bytes) -> bytes:
@@ -20,6 +33,18 @@ def sha256(data: bytes) -> bytes:
 
 def sha256_hex(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def pi_leaf_hash(chunk: bytes, chunk_index: int) -> bytes:
+    """
+    π-domain separated leaf hash.
+    H(π_domain || chunk_index || chunk)
+    Prevents second-preimage attacks across different chunk positions
+    and proves hash derivation is unbackdoored (NUMS principle).
+    """
+    return hashlib.sha256(
+        PI_DOMAIN + b'||' + chunk_index.to_bytes(4, 'big') + b'||' + chunk
+    ).digest()
 
 
 def chunk_firmware(firmware: bytes) -> List[bytes]:
@@ -33,11 +58,12 @@ def chunk_firmware(firmware: bytes) -> List[bytes]:
 def build_merkle_tree(firmware: bytes) -> Dict[str, Any]:
     """
     Build a complete Merkle tree from firmware bytes.
+    Uses π-domain separated leaf hashes (Nothing-Up-My-Sleeve principle).
     Construction: bottom-up, duplicating last node if level has odd count.
     Returns: root (hex), leaves (hex list), tree (all levels), chunk_count, file_size.
     """
     chunks = chunk_firmware(firmware)
-    leaves = [sha256(chunk) for chunk in chunks]
+    leaves = [pi_leaf_hash(chunk, i) for i, chunk in enumerate(chunks)]
 
     tree = [leaves]
     current = leaves[:]
@@ -61,6 +87,9 @@ def build_merkle_tree(firmware: bytes) -> Dict[str, Any]:
         "file_size": len(firmware),
         "chunk_size": CHUNK_SIZE,
         "tree_depth": len(tree),
+        "domain_separation": "π-seeded SHA-256",
+        "pi_digits_used": "32 bytes of π hex expansion",
+        "pi_domain_hex": PI_DOMAIN_HEX,
     }
 
 

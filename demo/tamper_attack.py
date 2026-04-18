@@ -27,7 +27,7 @@ if not os.path.exists(TAMPERED_BIN):
     exit(1)
 
 print("=" * 62)
-print("  VeriOTA — Demo Scenario 1: Firmware Tamper Attack")
+print("  VeriOTA - Demo Scenario 1: Firmware Tamper Attack")
 print("=" * 62)
 print(f"  Target Vehicle : {args.vehicle}")
 print(f"  Backend API    : {args.api}")
@@ -45,15 +45,15 @@ with open(CLEAN_BIN, "rb") as f:
 sign_res.raise_for_status()
 meta = sign_res.json()
 
-print(f"  ✔ Algorithm    : {meta.get('algorithm', 'ML-DSA-65')} ({meta.get('nist_standard', 'FIPS 204')})")
-print(f"  ✔ Merkle root  : {meta['merkle_root'][:24]}...")
-print(f"  ✔ Chunks       : {meta['chunk_count']} × 4KB = {meta['firmware_size'] // 1024}KB firmware")
-print(f"  ✔ Signed at    : {meta['signed_at']}")
-print(f"  ✔ Vehicle VIN  : {meta['vehicle_id']}")
-print(f"  ✔ Sig size     : {meta.get('signature_size_bytes', 3293)} bytes (vs RSA-2048: 256 bytes)")
+print(f"  [+] Algorithm    : {meta.get('algorithm', 'ML-DSA-65')} ({meta.get('nist_standard', 'FIPS 204')})")
+print(f"  [+] Merkle root  : {meta['merkle_root'][:24]}...")
+print(f"  [+] Chunks       : {meta['chunk_count']} x 4KB = {meta['firmware_size'] // 1024}KB firmware")
+print(f"  [+] Signed at    : {meta['signed_at']}")
+print(f"  [+] Vehicle VIN  : {meta['vehicle_id']}")
+print(f"  [+] Sig size     : {meta.get('signature_size_bytes', 3293)} bytes (vs RSA-2048: 256 bytes)")
 print()
 
-# Step 2: Submit tampered firmware — simulates attacker flipping byte 200000
+# Step 2: Submit tampered firmware - simulates attacker flipping byte 200000
 print("[STEP 2] Submitting TAMPERED firmware (byte 200,000 flipped to simulate CAN backdoor injection)...")
 trusted_merkle = json.dumps({"root": meta["merkle_root"], "leaves": meta["merkle_leaves"]})
 
@@ -62,8 +62,8 @@ with open(TAMPERED_BIN, "rb") as f:
         f"{args.api}/verify",
         files={"firmware": ("firmware_tampered.bin", f, "application/octet-stream")},
         data={
-            "signature": meta["signature"],
-            "public_key": meta["public_key"],
+            "signature": json.dumps(meta["consortium_signatures"]),
+            "public_key": "not-used-in-quorum",
             "trusted_merkle": trusted_merkle,
             "signed_at": meta["signed_at"],
             "firmware_hash_signed": meta["firmware_hash"],
@@ -85,11 +85,11 @@ print(f"  Firestore alert     : {result.get('alert_written_to_firestore', False)
 print()
 
 if result.get("tampered_chunks"):
-    print(f"  ⚠  TAMPERED CHUNKS ({len(result['tampered_chunks'])} detected):")
+    print(f"  [!] TAMPERED CHUNKS ({len(result['tampered_chunks'])} detected):")
     for chunk in result["tampered_chunks"][:5]:
-        print(f"    ├─ Chunk #{chunk['chunk_index']} — Bytes {chunk['byte_start']}–{chunk['byte_end']}")
-        print(f"    ├─ Trusted hash : {chunk.get('trusted_hash', '')[:24]}...")
-        print(f"    └─ Computed hash: {chunk.get('computed_hash', '')[:24]}...")
+        print(f"    |-- Chunk #{chunk['chunk_index']} - Bytes {chunk['byte_start']}-{chunk['byte_end']}")
+        print(f"    |-- Trusted hash : {chunk.get('trusted_hash', '')[:24]}...")
+        print(f"    +-- Computed hash: {chunk.get('computed_hash', '')[:24]}...")
 else:
     print("  No tampered chunks detected.")
 
@@ -99,6 +99,6 @@ if result.get("forensic_summary"):
 
 print("=" * 62)
 print()
-print("✔ Demo Scenario 1 complete.")
-print(f"  → Dashboard VIN {args.vehicle} should now be RED (TAMPERED)")
-print(f"  → Click the node to see chunk #, byte range, and hash diff")
+print("[+] Demo Scenario 1 complete.")
+print(f"  -> Dashboard VIN {args.vehicle} should now be RED (TAMPERED)")
+print(f"  -> Click the node to see chunk #, byte range, and hash diff")

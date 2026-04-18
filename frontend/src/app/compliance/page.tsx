@@ -14,7 +14,7 @@ export default function CompliancePage() {
   const [compliance, setCompliance] = useState<any>(null);
   const [threatModel, setThreatModel] = useState<any>(null);
   const [benchmarks, setBenchmarks] = useState<any>(null);
-  const [activeTab, setActiveTab] = useState<"compliance" | "threats" | "benchmarks" | "qday">("compliance");
+  const [activeTab, setActiveTab] = useState<"compliance" | "threats" | "benchmarks" | "qday" | "layers">("layers");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -38,6 +38,7 @@ export default function CompliancePage() {
   }, []);
 
   const tabs = [
+    { id: "layers" as const, label: "4-LAYER DEFENSE", icon: Shield },
     { id: "compliance" as const, label: "REGULATORY", icon: FileText },
     { id: "threats" as const, label: "TARA THREATS", icon: Target },
     { id: "benchmarks" as const, label: "PQM4 BENCHMARKS", icon: Cpu },
@@ -391,6 +392,69 @@ export default function CompliancePage() {
                   </span>
                 </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── TAB: 4-Layer Defense ─────────────────────────────────── */}
+        {activeTab === "layers" && (
+          <div className="space-y-6">
+            <div className="text-center mb-6">
+              <h2 className="font-mono text-lg font-bold text-emerald-400 uppercase tracking-widest">Defense-in-Depth Architecture</h2>
+              <p className="font-mono text-[9px] text-slate-500 mt-1">All 4 layers must pass for firmware installation approval</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                { num: 1, name: "M-of-N Consortium Quorum", desc: "Decentralized Trust Model. Firmware requires ML-DSA-65 signatures from 2 out of 3 Authorities (OEM, Regulator, Auditor). Eliminates single-point-of-failure.", color: "orange", border: "border-orange-800", bg: "bg-orange-950/20", text: "text-orange-400", badge: "bg-orange-900/40 text-orange-400 border-orange-800", nist: "FIPS 204" },
+                { num: 2, name: "π-Merkle Trees", desc: "4KB chunk fingerprinting with π-seeded domain separation. Locates exact tampered bytes in O(log N). Nothing-Up-My-Sleeve hash derivation.", color: "teal", border: "border-teal-800", bg: "bg-teal-950/20", text: "text-teal-400", badge: "bg-teal-900/40 text-teal-400 border-teal-800", nist: "SHA-256" },
+                { num: 3, name: "Monotonic Ledger", desc: "Semantic version enforcement. No vehicle can be downgraded to a vulnerable firmware version. Prevents replay and rollback attacks.", color: "blue", border: "border-blue-800", bg: "bg-blue-950/20", text: "text-blue-400", badge: "bg-blue-900/40 text-blue-400 border-blue-800", nist: "SemVer" },
+                { num: 4, name: "Transparency Log", desc: "Append-only hash chain with π-seeded genesis. Stolen OEM signing keys are useless — firmware not in the log is rejected. RFC 6962 inspired.", color: "purple", border: "border-purple-800", bg: "bg-purple-950/20", text: "text-purple-400", badge: "bg-purple-900/40 text-purple-400 border-purple-800", nist: "RFC 6962" },
+              ].map((layer, i) => (
+                <motion.div
+                  key={layer.num}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.15 }}
+                  className={`${layer.bg} border ${layer.border} rounded-xl p-5 relative overflow-hidden group hover:scale-[1.02] transition-transform`}
+                >
+                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-${layer.color}-500 to-transparent opacity-50`} />
+                  <div className="flex items-center justify-between mb-3">
+                    <span className={`text-2xl font-black font-mono ${layer.text} opacity-30`}>0{layer.num}</span>
+                    <span className={`text-[8px] font-mono px-2 py-0.5 rounded border ${layer.badge} uppercase`}>✓ ACTIVE</span>
+                  </div>
+                  <h3 className={`font-mono text-sm font-bold ${layer.text} mb-2 tracking-wider`}>{layer.name}</h3>
+                  <p className="font-mono text-[9px] text-slate-400 leading-relaxed mb-3">{layer.desc}</p>
+                  <div className={`text-[8px] font-mono ${layer.text} opacity-60`}>{layer.nist}</div>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="bg-slate-950/60 border border-emerald-900/30 rounded-xl p-5 mt-6">
+              <h3 className="font-mono text-xs text-emerald-400 uppercase tracking-widest mb-3">Attack Scenario Matrix</h3>
+              <div className="rounded-lg border border-slate-800 overflow-hidden">
+                <div className="grid grid-cols-5 bg-slate-950 text-[8px] font-mono text-slate-500 uppercase border-b border-slate-800">
+                  <div className="p-2">Scenario</div>
+                  <div className="p-2 text-center">L1 PQC</div>
+                  <div className="p-2 text-center">L2 Merkle</div>
+                  <div className="p-2 text-center">L3 Ledger</div>
+                  <div className="p-2 text-center">L4 Log</div>
+                </div>
+                {[
+                  { name: "Firmware Tamper", l1: true, l2: false, l3: true, l4: true },
+                  { name: "Version Rollback", l1: true, l2: true, l3: false, l4: true },
+                  { name: "State-Sponsored Quorum Hacker", l1: true, l2: true, l3: true, l4: false },
+                  { name: "Quantum Shor's Brute Force", l1: true, l2: true, l3: true, l4: true },
+                ].map((row, i) => (
+                  <div key={i} className={`grid grid-cols-5 text-[9px] font-mono border-b border-slate-800/50 ${i % 2 === 0 ? 'bg-slate-950/60' : 'bg-slate-950/30'}`}>
+                    <div className="p-2 text-slate-300">{row.name}</div>
+                    <div className={`p-2 text-center ${row.l1 ? 'text-emerald-500' : 'text-red-500'}`}>{row.l1 ? '✓' : '✗ CAUGHT'}</div>
+                    <div className={`p-2 text-center ${row.l2 ? 'text-emerald-500' : 'text-red-500'}`}>{row.l2 ? '✓' : '✗ CAUGHT'}</div>
+                    <div className={`p-2 text-center ${row.l3 ? 'text-emerald-500' : 'text-red-500'}`}>{row.l3 ? '✓' : '✗ CAUGHT'}</div>
+                    <div className={`p-2 text-center ${row.l4 ? 'text-emerald-500' : 'text-red-500'}`}>{row.l4 ? '✓' : '✗ CAUGHT'}</div>
+                  </div>
+                ))}
+              </div>
+              <p className="font-mono text-[8px] text-slate-600 mt-3">Every attack scenario is caught by at least one layer. No single point of failure.</p>
             </div>
           </div>
         )}

@@ -12,16 +12,19 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from core.firebase_client import _save_db, _load_db
 
-# 20 Professional/Realistic Vehicle IDs
+# 20 Professional/Realistic TATA Vehicles (Indian Manufacturer)
 vehicles = [
-    "MBZ-EQS-580-001", "MBZ-EQS-580-002", "MBZ-EQS-580-003", "MBZ-EQS-580-004", "MBZ-EQS-580-005",
-    "BMW-i7-xDrive-01", "BMW-i7-xDrive-02", "BMW-i7-xDrive-03", "BMW-i7-xDrive-04", "BMW-i7-xDrive-05",
-    "AUDI-eTron-GT-01", "AUDI-eTron-GT-02", "AUDI-eTron-GT-03", "AUDI-eTron-GT-04", "AUDI-eTron-GT-05",
-    "TSLA-ModelS-PD-1", "TSLA-ModelS-PD-2", "TSLA-ModelS-PD-3", "TSLA-ModelS-PD-4", "TSLA-ModelS-PD-5"
+    "TATA-Nexon-EV-001", "TATA-Nexon-EV-002", "TATA-Nexon-EV-003", "TATA-Nexon-EV-004", "TATA-Nexon-EV-005",
+    "TATA-Harrier-EV-01", "TATA-Harrier-EV-02", "TATA-Harrier-EV-03", "TATA-Harrier-EV-04", "TATA-Harrier-EV-05",
+    "TATA-Curvv-EV-01", "TATA-Curvv-EV-02", "TATA-Curvv-EV-03", "TATA-Curvv-EV-04", "TATA-Curvv-EV-05",
+    "TATA-Punch-EV-01", "TATA-Punch-EV-02", "TATA-Punch-EV-03", "TATA-Punch-EV-04", "TATA-Punch-EV-05"
 ]
 
 print(f"Seeding {len(vehicles)} vehicles into Local JSON DB...")
 db = _load_db()
+
+# Wipe the old ledger completely so ghost VINs (like VIN-007) are removed
+db["vehicle_ledger"] = {}
 
 for vid in vehicles:
     now = datetime.now(timezone.utc).isoformat()

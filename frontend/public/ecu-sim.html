@@ -114,7 +114,7 @@
     }
 
     /* ── LEFT PANEL: ECU STATUS ───────────────────────────── */
-    .left-panel { grid-row: 2; }
+    .left-panel { grid-row: 2; grid-column: 1; }
     .stat-row {
       display: flex;
       justify-content: space-between;
@@ -123,8 +123,8 @@
       padding: 4px 0;
       border-bottom: 1px solid rgba(0,255,157,0.05);
     }
-    .stat-label { color: #4a7a5a; }
-    .stat-val { color: var(--green); font-weight: bold; }
+    .stat-label { color: #88aa99; font-size: 11px; }
+    .stat-val { color: var(--green); font-weight: bold; font-size: 11px; }
     .stat-val.red { color: var(--red); }
     .stat-val.amber { color: var(--amber); }
     .stat-val.blue { color: var(--blue); }
@@ -177,33 +177,33 @@
     }
 
     /* ── RIGHT PANEL: CRYPTO ENGINE ───────────────────────── */
-    .right-panel { grid-row: 2; }
+    .right-panel { grid-row: 2; grid-column: 3; }
     .crypto-step {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
-      padding: 6px 8px;
-      border-radius: 6px;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
       border: 1px solid transparent;
-      font-size: 9px;
+      font-size: 11px;
       transition: all 0.4s;
     }
-    .crypto-step.idle { color: #2a4a3a; border-color: transparent; }
+    .crypto-step.idle { color: #5a7a6a; border-color: transparent; }
     .crypto-step.running {
       color: var(--blue);
-      border-color: rgba(0,195,255,0.3);
-      background: rgba(0,195,255,0.05);
+      border-color: rgba(0,195,255,0.5);
+      background: rgba(0,195,255,0.1);
       animation: blink 0.6s infinite;
     }
     .crypto-step.pass {
       color: var(--green);
-      border-color: rgba(0,255,157,0.3);
-      background: rgba(0,255,157,0.05);
+      border-color: rgba(0,255,157,0.4);
+      background: rgba(0,255,157,0.08);
     }
     .crypto-step.fail {
       color: var(--red);
-      border-color: rgba(255,34,102,0.4);
-      background: rgba(255,34,102,0.08);
+      border-color: rgba(255,34,102,0.6);
+      background: rgba(255,34,102,0.15);
     }
     .step-num {
       width: 18px; height: 18px;
@@ -219,23 +219,34 @@
     }
     .step-body { flex: 1; }
     .step-title { font-weight: bold; letter-spacing: 1px; margin-bottom: 2px; }
-    .step-detail { color: rgba(255,255,255,0.4); font-size: 8px; line-height: 1.4; }
+    .step-detail { color: rgba(255,255,255,0.7); font-size: 10px; line-height: 1.4; margin-top: 2px; }
 
     .hash-display {
-      font-size: 8px;
+      font-size: 11px;
       word-break: break-all;
-      background: rgba(0,0,0,0.4);
-      border: 1px solid rgba(0,255,157,0.1);
-      border-radius: 4px;
-      padding: 4px 6px;
-      color: #3a5a4a;
-      font-family: monospace;
-      line-height: 1.5;
-      min-height: 32px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(0,255,157,0.25);
+      border-radius: 6px;
+      padding: 8px 10px;
+      color: #779988;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      line-height: 1.4;
+      min-height: 40px;
       transition: all 0.3s;
     }
     .hash-display.live { color: var(--green); border-color: rgba(0,255,157,0.3); }
-    .hash-display.mismatch { color: var(--red); border-color: rgba(255,34,102,0.4); }
+    .hash-display.mismatch { 
+      color: var(--red); 
+      border-color: rgba(255,34,102,0.8); 
+      background: rgba(255,34,102,0.15);
+      animation: flash-mismatch 0.8s infinite alternate;
+    }
+
+    @keyframes flash-mismatch {
+      from { box-shadow: 0 0 4px rgba(255,34,102,0.4); text-shadow: 0 0 2px var(--red); }
+      to { box-shadow: 0 0 16px rgba(255,34,102,0.8); text-shadow: 0 0 8px var(--red); }
+    }
 
     /* ── BOTTOM: TERMINAL ─────────────────────────────────── */
     .terminal {

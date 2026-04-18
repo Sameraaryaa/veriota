@@ -6,6 +6,17 @@ import { Shield, Cpu } from "lucide-react";
  * This panel now provides navigation only.
  */
 export default function DemoControlPanel({ onLog }: { onLog?: (msg: string, type: string) => void }) {
+  const resetFleet = async () => {
+    if (onLog) onLog("Restoring entire fleet to baseline...", "system");
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
+      await fetch(`${API_URL}/api/demo/reset`, { method: 'POST' });
+      if (onLog) onLog("✔ SUCCESS: All nodes restored to QUANTUM_SAFE baseline.", "info");
+    } catch (e: any) {
+      if (onLog) onLog(`✘ RESET FAILED: ${e.message}`, "error");
+    }
+  };
+
   return (
     <div className="space-y-3">
       {/* Quick Links Grid */}
