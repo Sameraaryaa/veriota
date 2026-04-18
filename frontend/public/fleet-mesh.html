@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VeriOTA — Fleet Network Mesh</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #020804; overflow: hidden; font-family: 'Courier New', monospace; }
+  canvas { display: block; }
+  #hud {
+    position: fixed; top: 16px; left: 16px; z-index: 10;
+    color: #34d399; font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
+  }
+  #hud h1 { font-size: 18px; margin-bottom: 4px; }
+  #hud .sub { color: #065f46; font-size: 9px; }
+  #stats {
+    position: fixed; top: 16px; right: 16px; z-index: 10;
+    color: #34d399; font-size: 10px; text-align: right;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  #stats .val { font-size: 20px; font-weight: bold; }
+  #stats .red { color: #f87171; }
+  #stats .amber { color: #fbbf24; }
+  #legend {
+    position: fixed; bottom: 16px; left: 16px; z-index: 10;
+    color: #6b7280; font-size: 9px; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; margin: 3px 0; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+  #alert-banner {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    z-index: 20; display: none; text-align: center;
+    padding: 20px 40px; border-radius: 12px;
+    border: 2px solid #ef4444; background: rgba(127,29,29,0.9);
+    color: #fca5a5; font-size: 14px; letter-spacing: 3px;
+    animation: alertPulse 0.5s ease-in-out;
+  }
+  @keyframes alertPulse {
+    0%,100% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+    50% { opacity: 0.7; transform: translate(-50%,-50%) scale(1.05); }
+  }
+</style>
+</head>
+<body>
+<!-- Floating Navigation -->
+<div id="nav-trigger" style="position:fixed;left:0;top:0;width:12px;height:100%;z-index:999;cursor:pointer;background:linear-gradient(180deg,rgba(16,185,129,0.3),rgba(16,185,129,0.05))" onmouseenter="document.getElementById('nav-panel').style.transform='translateX(0)'" onclick="document.getElementById('nav-panel').style.transform=document.getElementById('nav-panel').style.transform==='translateX(0px)'?'translateX(-100%)':'translateX(0)'">
+  <div style="position:absolute;top:50%;left:3px;width:4px;height:40px;border-radius:4px;background:rgba(16,185,129,0.5);transform:translateY(-50%)"></div>
+</div>
+<div id="nav-panel" style="position:fixed;top:0;left:0;width:240px;height:100%;z-index:998;background:rgba(10,15,13,0.97);border-right:1px solid rgba(16,185,129,0.15);transform:translateX(-100%);transition:transform 0.3s;backdrop-filter:blur(16px);font-family:Courier New,monospace;padding:20px 12px;overflow-y:auto" onmouseleave="this.style.transform='translateX(-100%)'">
+  <div style="color:#34d399;font-size:13px;font-weight:bold;letter-spacing:3px;margin-bottom:4px">VERI<span style="color:#6ee7b7">OTA</span></div>
+  <div style="color:#065f46;font-size:7px;letter-spacing:2px;margin-bottom:16px">POST-QUANTUM SOC</div>
+  <a href="/" style="display:block;padding:10px;margin:4px 0;border-radius:8px;text-decoration:none;color:#34d399;font-size:9px;letter-spacing:2px;border:1px solid transparent;transition:all 0.2s" onmouseenter="this.style.background='rgba(16,185,129,0.08)';this.style.borderColor='rgba(16,185,129,0.2)'" onmouseleave="this.style.background='';this.style.borderColor='transparent'">🛡️ SOC DASHBOARD</a>
+  <a href="/attacks" style="display:block;padding:10px;margin:4px 0;border-radius:8px;text-decoration:none;color:#f87171;font-size:9px;letter-spacing:2px;border:1px solid transparent;transition:all 0.2s" onmouseenter="this.style.background='rgba(239,68,68,0.08)';this.style.borderColor='rgba(239,68,68,0.2)'" onmouseleave="this.style.background='';this.style.borderColor='transparent'">⚔️ CYBER WARFARE SIM</a>
+  <a href="/comparison" style="display:block;padding:10px;margin:4px 0;border-radius:8px;text-decoration:none;color:#60a5fa;font-size:9px;letter-spacing:2px;border:1px solid transparent;transition:all 0.2s" onmouseenter="this.style.background='rgba(96,165,250,0.08)';this.style.borderColor='rgba(96,165,250,0.2)'" onmouseleave="this.style.background='';this.style.borderColor='transparent'">⚡ ALGO COMPARE</a>
+  <a href="/compliance" style="display:block;padding:10px;margin:4px 0;border-radius:8px;text-decoration:none;color:#22d3ee;font-size:9px;letter-spacing:2px;border:1px solid transparent;transition:all 0.2s" onmouseenter="this.style.background='rgba(34,211,238,0.08)';this.style.borderColor='rgba(34,211,238,0.2)'" onmouseleave="this.style.background='';this.style.borderColor='transparent'">📋 COMPLIANCE & INTEL</a>
+  <a href="/ecu-sim.html" style="display:block;padding:10px;margin:4px 0;border-radius:8px;text-decoration:none;color:#34d399;font-size:9px;letter-spacing:2px;border:1px solid transparent;transition:all 0.2s" onmouseenter="this.style.background='rgba(16,185,129,0.08)';this.style.borderColor='rgba(16,185,129,0.2)'" onmouseleave="this.style.background='';this.style.borderColor='transparent'">🧠 3D ECU SIMULATOR</a>
+  <a href="/fleet-mesh.html" style="display:block;padding:10px;margin:4px 0;border-radius:8px;text-decoration:none;color:#818cf8;font-size:9px;letter-spacing:2px;border:1px solid rgba(129,140,248,0.2);background:rgba(129,140,248,0.08)">🗺️ FLEET NETWORK MESH ●</a>
+  <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(16,185,129,0.1);color:#1f3d2c;font-size:7px;text-align:center;letter-spacing:2px">HOVER LEFT EDGE TO OPEN</div>
+</div>
+<div id="hud">
+  <h1>VERI<span style="color:#10b981">OTA</span> FLEET MESH</h1>
+  <div class="sub">REAL-TIME NETWORK TOPOLOGY — INDIA COVERAGE</div>
+  <div class="sub" id="clock"></div>
+</div>
+<div id="stats">
+  <div>NODES ONLINE</div>
+  <div class="val" id="stat-total">0</div>
+  <div style="margin-top:8px">PQC SECURED</div>
+  <div class="val" id="stat-safe" style="color:#34d399">0</div>
+  <div style="margin-top:8px">THREATS</div>
+  <div class="val red" id="stat-threats">0</div>
+</div>
+<div id="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div> QUANTUM_SAFE (ML-DSA-65)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div> TAMPERED (Attack Detected)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div> ROLLBACK_BLOCKED</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div> OTA Update In Transit</div>
+</div>
+<div id="alert-banner"></div>
+<canvas id="c"></canvas>
+
+<script>
+const API = 'http://localhost:8001';
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+// Indian city positions (normalized 0-1, mapped to canvas)
+const CITIES = [
+  { name: 'Delhi',      x: 0.48, y: 0.28 },
+  { name: 'Mumbai',     x: 0.35, y: 0.55 },
+  { name: 'Bangalore',  x: 0.42, y: 0.75 },
+  { name: 'Chennai',    x: 0.50, y: 0.73 },
+  { name: 'Hyderabad',  x: 0.46, y: 0.62 },
+  { name: 'Kolkata',    x: 0.62, y: 0.42 },
+  { name: 'Pune',       x: 0.37, y: 0.58 },
+  { name: 'Ahmedabad',  x: 0.32, y: 0.42 },
+  { name: 'Jaipur',     x: 0.40, y: 0.33 },
+  { name: 'Lucknow',    x: 0.52, y: 0.32 },
+  { name: 'Chandigarh', x: 0.45, y: 0.22 },
+  { name: 'Bhopal',     x: 0.45, y: 0.45 },
+  { name: 'Nagpur',     x: 0.47, y: 0.52 },
+  { name: 'Kochi',      x: 0.40, y: 0.82 },
+  { name: 'Guwahati',   x: 0.70, y: 0.30 },
+  { name: 'Patna',      x: 0.58, y: 0.35 },
+  { name: 'Indore',     x: 0.40, y: 0.48 },
+  { name: 'Coimbatore', x: 0.43, y: 0.78 },
+  { name: 'Visakhapatnam', x: 0.54, y: 0.60 },
+  { name: 'Thiruvananthapuram', x: 0.41, y: 0.85 },
+];
+
+// India map outline (simplified SVG points, normalized 0-1)
+const INDIA_OUTLINE = [
+  [0.44,0.10],[0.40,0.14],[0.38,0.18],[0.42,0.20],[0.44,0.18],
+  [0.48,0.16],[0.50,0.18],[0.47,0.22],[0.44,0.20],[0.40,0.22],
+  [0.36,0.26],[0.32,0.30],[0.28,0.34],[0.26,0.38],[0.28,0.42],
+  [0.30,0.46],[0.32,0.50],[0.34,0.54],[0.32,0.58],[0.34,0.62],
+  [0.36,0.66],[0.38,0.70],[0.36,0.74],[0.38,0.78],[0.40,0.82],
+  [0.41,0.86],[0.42,0.88],[0.44,0.86],[0.46,0.82],[0.48,0.78],
+  [0.50,0.74],[0.52,0.70],[0.54,0.66],[0.56,0.62],[0.58,0.58],
+  [0.60,0.52],[0.62,0.48],[0.64,0.44],[0.66,0.40],[0.68,0.36],
+  [0.72,0.32],[0.74,0.28],[0.70,0.26],[0.66,0.28],[0.62,0.30],
+  [0.58,0.28],[0.56,0.24],[0.54,0.20],[0.52,0.16],[0.50,0.14],
+  [0.48,0.12],[0.44,0.10],
+];
+
+// Nodes
+let nodes = CITIES.map((c, i) => ({
+  id: `VIN-${String(i + 1).padStart(3, '0')}`,
+  city: c.name,
+  baseX: c.x, baseY: c.y,
+  x: 0, y: 0,
+  status: 'QUANTUM_SAFE',
+  radius: 6,
+  pulse: 0,
+  alertTime: 0,
+}));
+
+// Mesh connections (create network topology)
+let connections = [];
+for (let i = 0; i < nodes.length; i++) {
+  for (let j = i + 1; j < nodes.length; j++) {
+    const dx = nodes[i].baseX - nodes[j].baseX;
+    const dy = nodes[i].baseY - nodes[j].baseY;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if (dist < 0.18) { // Connect nearby cities
+      connections.push({ from: i, to: j, particles: [], active: true });
+    }
+  }
+}
+
+// Data flow particles
+class Particle {
+  constructor(fromNode, toNode) {
+    this.from = fromNode;
+    this.to = toNode;
+    this.progress = 0;
+    this.speed = 0.005 + Math.random() * 0.008;
+    this.color = '#34d399';
+  }
+  update() {
+    this.progress += this.speed;
+    return this.progress < 1;
+  }
+  draw() {
+    const x = this.from.x + (this.to.x - this.from.x) * this.progress;
+    const y = this.from.y + (this.to.y - this.from.y) * this.progress;
+    ctx.beginPath();
+    ctx.arc(x, y, 2, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.shadowColor = this.color;
+    ctx.shadowBlur = 8;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+}
+
+let particles = [];
+let prevStatuses = {};
+let time = 0;
+
+function statusColor(status) {
+  if (status === 'TAMPERED') return '#ef4444';
+  if (status === 'ROLLBACK_BLOCKED') return '#f59e0b';
+  return '#34d399';
+}
+
+function drawMap() {
+  // India outline
+  ctx.beginPath();
+  INDIA_OUTLINE.forEach((p, i) => {
+    const x = p[0] * W, y = p[1] * H;
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.closePath();
+  ctx.strokeStyle = 'rgba(16, 185, 129, 0.12)';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  ctx.fillStyle = 'rgba(16, 185, 129, 0.02)';
+  ctx.fill();
+}
+
+function drawConnections() {
+  connections.forEach(conn => {
+    const a = nodes[conn.from];
+    const b = nodes[conn.to];
+    const isAlert = a.status !== 'QUANTUM_SAFE' || b.status !== 'QUANTUM_SAFE';
+
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = isAlert
+      ? `rgba(239, 68, 68, ${0.15 + Math.sin(time * 3) * 0.1})`
+      : `rgba(16, 185, 129, ${0.06 + Math.sin(time + conn.from) * 0.03})`;
+    ctx.lineWidth = isAlert ? 1.2 : 0.5;
+    ctx.stroke();
+  });
+}
+
+function drawNodes() {
+  nodes.forEach(node => {
+    node.x = node.baseX * W;
+    node.y = node.baseY * H;
+    const color = statusColor(node.status);
+    const isAlert = node.status !== 'QUANTUM_SAFE';
+
+    // Outer pulse ring for alerts
+    if (isAlert) {
+      node.pulse = (node.pulse + 0.03) % 1;
+      const pulseR = node.radius + node.pulse * 30;
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, pulseR, 0, Math.PI * 2);
+      ctx.strokeStyle = color.replace(')', `, ${1 - node.pulse})`).replace('rgb', 'rgba');
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Second pulse
+      const p2 = (node.pulse + 0.5) % 1;
+      const pr2 = node.radius + p2 * 25;
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, pr2, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(239, 68, 68, ${(1 - p2) * 0.5})`;
+      ctx.stroke();
+    }
+
+    // Glow
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, node.radius + 4, 0, Math.PI * 2);
+    ctx.fillStyle = isAlert
+      ? `rgba(239, 68, 68, ${0.15 + Math.sin(time * 5) * 0.1})`
+      : `rgba(16, 185, 129, 0.08)`;
+    ctx.fill();
+
+    // Core dot
+    ctx.beginPath();
+    ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = isAlert ? 20 : 10;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // Label
+    ctx.font = '8px Courier New';
+    ctx.fillStyle = isAlert ? '#fca5a5' : '#6b7280';
+    ctx.textAlign = 'center';
+    ctx.fillText(node.id, node.x, node.y - 14);
+    ctx.font = '7px Courier New';
+    ctx.fillStyle = '#374151';
+    ctx.fillText(node.city, node.x, node.y + 18);
+  });
+}
+
+function spawnParticles() {
+  // Random data flow particles on connections
+  if (Math.random() < 0.05) {
+    const conn = connections[Math.floor(Math.random() * connections.length)];
+    const from = nodes[conn.from];
+    const to = nodes[conn.to];
+    const p = new Particle(from, to);
+    if (from.status !== 'QUANTUM_SAFE' || to.status !== 'QUANTUM_SAFE') {
+      p.color = '#ef4444';
+    }
+    particles.push(p);
+  }
+}
+
+function showAlert(nodeId, type) {
+  const banner = document.getElementById('alert-banner');
+  banner.style.display = 'block';
+  if (type === 'TAMPERED') {
+    banner.innerHTML = `⚠ INTRUSION DETECTED<br><span style="font-size:20px;color:#ef4444">${nodeId}</span><br><span style="font-size:10px;color:#fca5a5">FIRMWARE TAMPER — MERKLE VERIFICATION FAILED</span>`;
+    banner.style.borderColor = '#ef4444';
+    banner.style.background = 'rgba(127,29,29,0.9)';
+  } else if (type === 'ROLLBACK_BLOCKED') {
+    banner.innerHTML = `⚠ ROLLBACK ATTEMPT<br><span style="font-size:20px;color:#f59e0b">${nodeId}</span><br><span style="font-size:10px;color:#fde68a">VERSION DOWNGRADE BLOCKED BY LEDGER</span>`;
+    banner.style.borderColor = '#f59e0b';
+    banner.style.background = 'rgba(120,80,0,0.9)';
+  }
+  setTimeout(() => { banner.style.display = 'none'; }, 3000);
+}
+
+// Poll fleet data
+async function pollFleet() {
+  try {
+    const res = await fetch(`${API}/fleet`);
+    const data = await res.json();
+    const vehicles = data.vehicles || [];
+    let safe = 0, threats = 0;
+
+    vehicles.forEach(v => {
+      const node = nodes.find(n => n.id === v.vehicle_id);
+      if (node) {
+        const oldStatus = prevStatuses[node.id];
+        node.status = v.status || 'QUANTUM_SAFE';
+
+        // Detect status change → show alert
+        if (oldStatus && oldStatus === 'QUANTUM_SAFE' && node.status !== 'QUANTUM_SAFE') {
+          showAlert(node.id, node.status);
+          // Spawn red particles toward this node
+          connections.forEach(conn => {
+            const idx = nodes.indexOf(node);
+            if (conn.from === idx || conn.to === idx) {
+              for (let i = 0; i < 5; i++) {
+                const from = conn.from === idx ? nodes[conn.to] : nodes[conn.from];
+                const p = new Particle(from, node);
+                p.color = '#ef4444';
+                p.speed = 0.015;
+                particles.push(p);
+              }
+            }
+          });
+        }
+        prevStatuses[node.id] = node.status;
+
+        if (node.status === 'QUANTUM_SAFE') safe++;
+        else threats++;
+      }
+    });
+
+    document.getElementById('stat-total').textContent = vehicles.length;
+    document.getElementById('stat-safe').textContent = safe;
+    document.getElementById('stat-threats').textContent = threats;
+  } catch (e) {
+    // Backend unavailable
+  }
+}
+
+// Clock
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
+}
+
+// Animation loop
+function animate() {
+  time += 0.016;
+  ctx.clearRect(0, 0, W, H);
+
+  // Background grid
+  ctx.strokeStyle = 'rgba(16, 185, 129, 0.03)';
+  ctx.lineWidth = 0.5;
+  for (let x = 0; x < W; x += 40) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+  }
+  for (let y = 0; y < H; y += 40) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+
+  drawMap();
+  drawConnections();
+  spawnParticles();
+
+  // Update and draw particles
+  particles = particles.filter(p => {
+    const alive = p.update();
+    if (alive) p.draw();
+    return alive;
+  });
+
+  drawNodes();
+  requestAnimationFrame(animate);
+}
+
+// Start
+pollFleet();
+setInterval(pollFleet, 3000);
+setInterval(updateClock, 1000);
+updateClock();
+animate();
+</script>
+</body>
+</html>

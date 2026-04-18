@@ -103,6 +103,12 @@
 
 ## Change Log
 
+### 2026-04-18 10:55 IST
+- Created global hidden Sidebar navigation to unify all web interfaces
+- Replaced dashboard attack controls with a dedicated `/attacks` Cyber Warfare Simulator page
+- Added an interactive `fleet-mesh.html` (India Map) with live web-nodes pulsing upon attack
+- Synced Sidebar overlay into `ecu-sim.html` and `fleet-mesh.html`
+
 ### 2026-04-18 10:18 IST
 - Redesigned `ATTACKER.bat` as a realistic hacking terminal
 - Removed defender tools (Reset/Sandbox) from attacker menu — only exploit modules
