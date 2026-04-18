@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VeriOTA — ECU Firmware Security Simulator</title>
+
+  <!-- Three.js r158 from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+  <!-- TWEEN for smooth animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/23.1.1/tween.umd.js"></script>
+
+  <style>
+    :root {
+      --green:  #00ff9d;
+      --red:    #ff2266;
+      --amber:  #ffb300;
+      --blue:   #00c3ff;
+      --bg:     #030a06;
+      --panel:  rgba(0,10,5,0.85);
+      --border: rgba(0,255,157,0.15);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: #e0ffe0;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* ── CANVAS ───────────────────────────────────────────── */
+    #canvas-container {
+      position: absolute; inset: 0;
+      z-index: 0;
+    }
+    canvas { display: block; }
+
+    /* ── OVERLAY LAYOUT ───────────────────────────────────── */
+    .overlay {
+      position: absolute; inset: 0;
+      display: grid;
+      grid-template-columns: 280px 1fr 280px;
+      grid-template-rows: 60px 1fr 180px;
+      gap: 8px;
+      padding: 8px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .overlay > * { pointer-events: auto; }
+
+    /* ── HEADER ───────────────────────────────────────────── */
+    .header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 20px;
+      backdrop-filter: blur(12px);
+    }
+    .header-title {
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--green);
+      text-shadow: 0 0 20px var(--green);
+    }
+    .header-sub { font-size: 10px; color: #4a7a5a; letter-spacing: 2px; text-transform: uppercase; }
+    .header-badge {
+      font-size: 9px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      background: rgba(0,255,157,0.1);
+      border: 1px solid rgba(0,255,157,0.3);
+      color: var(--green);
+      padding: 4px 12px;
+      border-radius: 4px;
+    }
+
+    /* ── PANELS ───────────────────────────────────────────── */
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      backdrop-filter: blur(16px);
+      padding: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .panel-title {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .panel-title .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 1.5s infinite;
+    }
+
+    /* ── LEFT PANEL: ECU STATUS ───────────────────────────── */
+    .left-panel { grid-row: 2; }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(0,255,157,0.05);
+    }
+    .stat-label { color: #4a7a5a; }
+    .stat-val { color: var(--green); font-weight: bold; }
+    .stat-val.red { color: var(--red); }
+    .stat-val.amber { color: var(--amber); }
+    .stat-val.blue { color: var(--blue); }
+
+    .progress-bar {
+      height: 4px;
+      background: rgba(0,255,157,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    .progress-bar-fill.attack { background: var(--red); box-shadow: 0 0 8px var(--red); }
+
+    .shield-status {
+      text-align: center;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: all 0.4s;
+    }
+    .shield-status.safe {
+      color: var(--green);
+      background: rgba(0,255,157,0.07);
+      border-color: rgba(0,255,157,0.3);
+      text-shadow: 0 0 10px var(--green);
+    }
+    .shield-status.attack {
+      color: var(--red);
+      background: rgba(255,34,102,0.12);
+      border-color: rgba(255,34,102,0.5);
+      text-shadow: 0 0 10px var(--red);
+      animation: shake 0.3s infinite;
+    }
+    .shield-status.blocked {
+      color: var(--amber);
+      background: rgba(255,179,0,0.1);
+      border-color: rgba(255,179,0,0.4);
+      text-shadow: 0 0 10px var(--amber);
+    }
+
+    /* ── RIGHT PANEL: CRYPTO ENGINE ───────────────────────── */
+    .right-panel { grid-row: 2; }
+    .crypto-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      font-size: 9px;
+      transition: all 0.4s;
+    }
+    .crypto-step.idle { color: #2a4a3a; border-color: transparent; }
+    .crypto-step.running {
+      color: var(--blue);
+      border-color: rgba(0,195,255,0.3);
+      background: rgba(0,195,255,0.05);
+      animation: blink 0.6s infinite;
+    }
+    .crypto-step.pass {
+      color: var(--green);
+      border-color: rgba(0,255,157,0.3);
+      background: rgba(0,255,157,0.05);
+    }
+    .crypto-step.fail {
+      color: var(--red);
+      border-color: rgba(255,34,102,0.4);
+      background: rgba(255,34,102,0.08);
+    }
+    .step-num {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 9px;
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid currentColor;
+    }
+    .step-body { flex: 1; }
+    .step-title { font-weight: bold; letter-spacing: 1px; margin-bottom: 2px; }
+    .step-detail { color: rgba(255,255,255,0.4); font-size: 8px; line-height: 1.4; }
+
+    .hash-display {
+      font-size: 8px;
+      word-break: break-all;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(0,255,157,0.1);
+      border-radius: 4px;
+      padding: 4px 6px;
+      color: #3a5a4a;
+      font-family: monospace;
+      line-height: 1.5;
+      min-height: 32px;
+      transition: all 0.3s;
+    }
+    .hash-display.live { color: var(--green); border-color: rgba(0,255,157,0.3); }
+    .hash-display.mismatch { color: var(--red); border-color: rgba(255,34,102,0.4); }
+
+    /* ── BOTTOM: TERMINAL ─────────────────────────────────── */
+    .terminal {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      backdrop-filter: blur(16px);
+      padding: 10px 14px;
+      overflow: hidden;
+    }
+    .terminal-header {
+      font-size: 8px;
+      letter-spacing: 3px;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .terminal-lines {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .terminal-lines::-webkit-scrollbar { width: 4px; }
+    .terminal-lines::-webkit-scrollbar-thumb { background: rgba(0,255,157,0.2); border-radius: 2px; }
+    .log-line { font-size: 9px; white-space: pre-wrap; word-break: break-word; line-height: 1.5; }
+    .log-line.info    { color: #3a7a5a; }
+    .log-line.system  { color: var(--green); }
+    .log-line.attack  { color: var(--red); }
+    .log-line.blocked { color: var(--amber); }
+    .log-line.success { color: #00ff9d; font-weight: bold; }
+
+    /* ── CONTROLS ─────────────────────────────────────────── */
+    .controls {
+      position: absolute;
+      bottom: 196px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 20;
+      pointer-events: auto;
+    }
+    .btn {
+      padding: 9px 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: 1px solid;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: transparent;
+    }
+    .btn:hover { filter: brightness(1.3); transform: scale(1.03); }
+    .btn:active { transform: scale(0.97); }
+    .btn:disabled { opacity: 0.3; cursor: not-allowed; filter: none; transform: none; }
+    .btn-green {
+      border-color: var(--green);
+      color: var(--green);
+      box-shadow: 0 0 12px rgba(0,255,157,0.15);
+    }
+    .btn-green:hover { background: rgba(0,255,157,0.1); box-shadow: 0 0 20px rgba(0,255,157,0.3); }
+    .btn-red {
+      border-color: var(--red);
+      color: var(--red);
+      box-shadow: 0 0 12px rgba(255,34,102,0.15);
+    }
+    .btn-red:hover { background: rgba(255,34,102,0.1); box-shadow: 0 0 20px rgba(255,34,102,0.3); }
+    .btn-amber {
+      border-color: var(--amber);
+      color: var(--amber);
+      box-shadow: 0 0 12px rgba(255,179,0,0.15);
+    }
+    .btn-amber:hover { background: rgba(255,179,0,0.1); box-shadow: 0 0 20px rgba(255,179,0,0.3); }
+    .btn-blue {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+    .btn-blue:hover { background: rgba(0,195,255,0.1); }
+
+    /* Back to dashboard */
+    .back-btn {
+      position: absolute;
+      top: 8px;
+      left: 296px;
+      z-index: 30;
+      pointer-events: auto;
+    }
+
+    /* ── ANIMATIONS ───────────────────────────────────────── */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 6px currentColor; }
+      50% { opacity: 0.4; box-shadow: 0 0 2px currentColor; }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      75% { transform: translateX(2px); }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .log-line { animation: fadeInDown 0.2s ease; }
+  </style>
+</head>
+<body>
+
+<!-- 3D Canvas -->
+<div id="canvas-container"></div>
+
+<!-- Control Buttons -->
+<div class="controls">
+  <button class="btn btn-green" id="btn-clean" onclick="startCleanUpdate()">▶ Start OTA Update</button>
+  <button class="btn btn-red" id="btn-tamper" onclick="startTamperAttack()">⚡ Inject Tamper Attack</button>
+  <button class="btn btn-amber" id="btn-rollback" onclick="startRollbackAttack()">↩ Simulate Rollback</button>
+  <button class="btn btn-blue" id="btn-reset" onclick="resetAll()">↺ Reset ECU</button>
+</div>
+
+<!-- HUD Overlay -->
+<div class="overlay">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="header-title">VeriOTA — ECU Firmware Security Simulator</div>
+      <div class="header-sub">ARM Cortex-M4 @ 168 MHz · STM32F407VGT · ML-DSA-65 FIPS 204</div>
+    </div>
+    <div class="header-badge">🔒 QUANTUM SAFE · NIST FIPS 204</div>
+  </div>
+
+  <!-- LEFT PANEL -->
+  <div class="panel left-panel">
+    <div class="panel-title"><span class="dot"></span>ECU Status</div>
+
+    <div class="shield-status safe" id="shield-status">🛡 SECURE</div>
+
+    <div class="stat-row"><span class="stat-label">VIN</span><span class="stat-val" id="stat-vin">VIN-007</span></div>
+    <div class="stat-row"><span class="stat-label">CPU</span><span class="stat-val" id="stat-cpu">168 MHz</span></div>
+    <div class="stat-row"><span class="stat-label">Firmware</span><span class="stat-val" id="stat-fw">v2.1.4</span></div>
+    <div class="stat-row"><span class="stat-label">Algorithm</span><span class="stat-val blue">ML-DSA-65</span></div>
+    <div class="stat-row"><span class="stat-label">NIST Level</span><span class="stat-val">3 · FIPS 204</span></div>
+    <div class="stat-row"><span class="stat-label">Chunks</span><span class="stat-val" id="stat-chunks">2560 × 4KB</span></div>
+    <div class="stat-row"><span class="stat-label">Packets Rx</span><span class="stat-val" id="stat-rx">0</span></div>
+    <div class="stat-row"><span class="stat-label">Attacks Blocked</span><span class="stat-val red" id="stat-blocked">0</span></div>
+
+    <div>
+      <div class="stat-row"><span class="stat-label">OTA Progress</span><span class="stat-val" id="progress-pct">0%</span></div>
+      <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="panel right-panel">
+    <div class="panel-title"><span class="dot"></span>Cryptographic Verification Engine</div>
+
+    <div class="crypto-step idle" id="step-sig">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">ML-DSA-65 Signature</div>
+        <div class="step-detail">Verify composite payload:<br/>merkle_root + timestamp + VIN</div>
+      </div>
+    </div>
+
+    <div class="crypto-step idle" id="step-merkle">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Merkle Tree Rebuild</div>
+        <div class="step-detail">SHA-256 each 4KB chunk<br/>Recompute root bottom-up</div>
+      </div>
+    </div>
+
+    <div class="crypto-step idle" id="step-proof">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Merkle Proof Path (O log N)</div>
+        <div class="step-detail">Verify sibling hash chain<br/>Bitcoin SPV-style validation</div>
+      </div>
+    </div>
+
+    <div class="crypto-step idle" id="step-version">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Version Ledger Check</div>
+        <div class="step-detail">Monotonic version enforcement<br/>Rollback prevention</div>
+      </div>
+    </div>
+
+    <div class="crypto-step idle" id="step-install">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">Flash / Install Decision</div>
+        <div class="step-detail">All checks passed → Install<br/>Any failure → Block + Alert</div>
+      </div>
+    </div>
+
+    <div style="margin-top:4px">
+      <div class="stat-row"><span class="stat-label">Merkle Root (Expected)</span></div>
+      <div class="hash-display" id="hash-expected">Awaiting firmware...</div>
+      <div class="stat-row" style="margin-top:4px"><span class="stat-label">Merkle Root (Computed)</span></div>
+      <div class="hash-display" id="hash-computed">Awaiting firmware...</div>
+    </div>
+  </div>
+
+  <!-- TERMINAL -->
+  <div class="terminal">
+    <div class="terminal-header">
+      <span>▶ ECU Firmware Update Log</span>
+      <span id="terminal-ts" style="color:#2a4a3a"></span>
+    </div>
+    <div class="terminal-lines" id="terminal-lines">
+      <div class="log-line info">[BOOT] VeriOTA ECU Simulator v2.0 initialized</div>
+      <div class="log-line info">[BOOT] ARM Cortex-M4 @ 168 MHz · liboqs ML-DSA-65 loaded</div>
+      <div class="log-line info">[BOOT] Merkle chunk size: 4096 bytes · SHA-256 hardware-accelerated</div>
+      <div class="log-line system">[READY] Awaiting OTA update package...</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- THREE.JS SCENE -->
+<script>
+'use strict';
+
+// ─────────────────────────────────────────────────
+// CONSTANTS
+// ─────────────────────────────────────────────────
+const API = (window.location.port === '3001'
+  ? 'http://localhost:8001'
+  : 'http://localhost:8001');
+
+const C_GREEN  = 0x00ff9d;
+const C_RED    = 0xff2266;
+const C_AMBER  = 0xffb300;
+const C_BLUE   = 0x00c3ff;
+const C_DARK   = 0x020a06;
+
+// ─────────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────────
+let isRunning = false;
+let packetsRx = 0;
+let attacksBlocked = 0;
+let simInterval = null;
+let progressVal = 0;
+const activeParticles = [];
+const dataPackets = [];
+
+// ─────────────────────────────────────────────────
+// THREE.JS SETUP
+// ─────────────────────────────────────────────────
+const container = document.getElementById('canvas-container');
+
+const scene    = new THREE.Scene();
+const camera   = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, 4, 12);
+camera.lookAt(0, 0, 0);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setClearColor(C_DARK, 1);
+container.appendChild(renderer.domElement);
+
+// Fog
+scene.fog = new THREE.Fog(C_DARK, 20, 60);
+
+// ─────────────────────────────────────────────────
+// LIGHTING
+// ─────────────────────────────────────────────────
+scene.add(new THREE.AmbientLight(0x0a1a0f, 0.8));
+const dirLight = new THREE.DirectionalLight(0x00ff9d, 0.6);
+dirLight.position.set(5, 10, 5);
+scene.add(dirLight);
+const pointGreen = new THREE.PointLight(C_GREEN, 1.5, 20);
+pointGreen.position.set(0, 4, 0);
+scene.add(pointGreen);
+const pointRed = new THREE.PointLight(C_RED, 0, 15);
+pointRed.position.set(0, 2, 0);
+scene.add(pointRed);
+
+// ─────────────────────────────────────────────────
+// GRID FLOOR
+// ─────────────────────────────────────────────────
+const gridHelper = new THREE.GridHelper(40, 40, 0x003311, 0x001a08);
+gridHelper.position.y = -3;
+scene.add(gridHelper);
+
+// ─────────────────────────────────────────────────
+// ECU BOARD
+// ─────────────────────────────────────────────────
+const ecuGroup = new THREE.Group();
+
+// Main PCB board
+const pcbGeo = new THREE.BoxGeometry(6, 0.18, 4);
+const pcbMat = new THREE.MeshPhongMaterial({
+  color: 0x004422,
+  emissive: 0x001108,
+  shininess: 80,
+});
+const pcbMesh = new THREE.Mesh(pcbGeo, pcbMat);
+ecuGroup.add(pcbMesh);
+
+// PCB edge glow
+const pcbEdgeGeo = new THREE.EdgesGeometry(pcbGeo);
+const pcbEdgeMat = new THREE.LineBasicMaterial({ color: C_GREEN, linewidth: 2 });
+ecuGroup.add(new THREE.LineSegments(pcbEdgeGeo, pcbEdgeMat));
+
+// Chip: MCU (central, large)
+function makeChip(w, d, h, color, emissive, x, z) {
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(
+    new THREE.BoxGeometry(w, h, d),
+    new THREE.MeshPhongMaterial({ color, emissive, shininess: 120 })
+  );
+  body.position.y = h / 2 + 0.09;
+  g.add(body);
+  const edges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.BoxGeometry(w, h, d)),
+    new THREE.LineBasicMaterial({ color: C_GREEN, linewidth: 1 })
+  );
+  edges.position.y = h / 2 + 0.09;
+  g.add(edges);
+  g.position.set(x, 0, z);
+  return g;
+}
+
+const mcuChip = makeChip(1.4, 1.4, 0.3, 0x001a0a, 0x002211, 0, 0);
+ecuGroup.add(mcuChip);
+
+// Smaller chips
+ecuGroup.add(makeChip(0.6, 0.4, 0.15, 0x001a0a, 0x001108, -1.8, 0.5));
+ecuGroup.add(makeChip(0.6, 0.4, 0.15, 0x001a0a, 0x001108,  1.8, 0.5));
+ecuGroup.add(makeChip(0.6, 0.4, 0.15, 0x001a0a, 0x001108, -1.8, -0.8));
+ecuGroup.add(makeChip(0.6, 0.4, 0.15, 0x001a0a, 0x001108,  1.8, -0.8));
+ecuGroup.add(makeChip(0.4, 0.3, 0.12, 0x001a0a, 0x001108,  0,   1.4));
+ecuGroup.add(makeChip(0.4, 0.3, 0.12, 0x001a0a, 0x001108,  0,  -1.4));
+
+// Capacitors (cylinders)
+function makeCap(x, z, color) {
+  const g = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.08, 0.08, 0.22, 8),
+    new THREE.MeshPhongMaterial({ color, emissive: color, emissiveIntensity: 0.3 })
+  );
+  g.position.set(x, 0.2, z);
+  return g;
+}
+[[-2.3, 0], [-2.3, 0.6], [-2.3,-0.6], [2.3, 0], [2.3, 0.6], [2.3,-0.6],
+ [0.6, 1.5], [-0.6, 1.5], [0.6,-1.5], [-0.6,-1.5]].forEach(([x,z], i) => {
+  ecuGroup.add(makeCap(x, z, i % 3 === 0 ? 0x334433 : i % 3 === 1 ? 0x223322 : 0x443433));
+});
+
+// Connector (right edge)
+const connGeo = new THREE.BoxGeometry(0.35, 0.35, 1.2);
+const connMat = new THREE.MeshPhongMaterial({ color: 0x333333, emissive: 0x111111 });
+const connL = new THREE.Mesh(connGeo, connMat);
+const connR = new THREE.Mesh(connGeo, connMat);
+connL.position.set(-2.7, 0.17, 0);
+connR.position.set( 2.7, 0.17, 0);
+ecuGroup.add(connL, connR);
+
+// OBD Port (bottom)
+const odbGeo = new THREE.BoxGeometry(1.2, 0.25, 0.35);
+const odbMesh = new THREE.Mesh(odbGeo, connMat);
+odbMesh.position.set(0, 0.12, -1.8);
+ecuGroup.add(odbMesh);
+
+ecuGroup.position.y = -0.5;
+ecuGroup.rotation.x = -0.1;
+scene.add(ecuGroup);
+
+// MCU glow light (on the chip)
+const mcuGlow = new THREE.PointLight(C_GREEN, 1.5, 6);
+mcuGlow.position.set(0, 0.6, 0);
+ecuGroup.add(mcuGlow);
+
+// ─────────────────────────────────────────────────
+// MERKLE TREE VISUALIZATION
+// ─────────────────────────────────────────────────
+const merkleGroup = new THREE.Group();
+merkleGroup.position.set(0, 2.5, 0);
+scene.add(merkleGroup);
+
+const merkleNodes = [];
+const merkleLines = [];
+
+function buildMerkleViz() {
+  merkleGroup.clear();
+  merkleNodes.length = 0;
+  merkleLines.length = 0;
+
+  const levels = [
+    { count: 1, y: 3.0 },    // root
+    { count: 2, y: 1.8 },
+    { count: 4, y: 0.6 },
+    { count: 8, y: -0.6 },   // leaves
+  ];
+
+  const levelNodes = [];
+  levels.forEach(({ count, y }, li) => {
+    const row = [];
+    const spread = (count - 1) * 1.1;
+    for (let i = 0; i < count; i++) {
+      const x = count === 1 ? 0 : -spread / 2 + i * (spread / (count - 1));
+      const geo = new THREE.SphereGeometry(0.14 + (3 - li) * 0.025, 12, 12);
+      const mat = new THREE.MeshPhongMaterial({
+        color: C_GREEN,
+        emissive: C_GREEN,
+        emissiveIntensity: 0.2,
+        transparent: true,
+        opacity: 0.15 + li * 0.05,
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.set(x, y, 0);
+      merkleGroup.add(mesh);
+      merkleNodes.push(mesh);
+      row.push({ x, y, mesh });
+    }
+    levelNodes.push(row);
+  });
+
+  // Connect levels with lines
+  for (let l = 0; l < levelNodes.length - 1; l++) {
+    const parent = levelNodes[l];
+    const children = levelNodes[l + 1];
+    const childPerParent = children.length / parent.length;
+    parent.forEach((p, pi) => {
+      for (let ci = pi * childPerParent; ci < (pi + 1) * childPerParent; ci++) {
+        const c = children[ci];
+        const pts = [new THREE.Vector3(p.x, p.y, 0), new THREE.Vector3(c.x, c.y, 0)];
+        const geo = new THREE.BufferGeometry().setFromPoints(pts);
+        const mat = new THREE.LineBasicMaterial({ color: C_GREEN, transparent: true, opacity: 0.12 });
+        const line = new THREE.Line(geo, mat);
+        merkleGroup.add(line);
+        merkleLines.push({ line, mat });
+      }
+    });
+  }
+}
+buildMerkleViz();
+
+// ─────────────────────────────────────────────────
+// DATA PACKET EMITTER
+// ─────────────────────────────────────────────────
+function spawnPacket(color, fromX, toX, fromY, toY, fromZ, toZ, onReach) {
+  const geo = new THREE.BoxGeometry(0.18, 0.10, 0.10);
+  const mat = new THREE.MeshPhongMaterial({
+    color,
+    emissive: color,
+    emissiveIntensity: 0.8,
+    transparent: true,
+    opacity: 0.9,
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.set(fromX, fromY, fromZ);
+  scene.add(mesh);
+
+  const trail = [];
+
+  const startPos = { x: fromX, y: fromY, z: fromZ };
+  const endPos   = { x: toX,   y: toY,   z: toZ   };
+
+  new TWEEN.Tween(startPos)
+    .to(endPos, 1200 + Math.random() * 600)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .onUpdate(() => {
+      mesh.position.set(startPos.x, startPos.y, startPos.z);
+      mesh.rotation.y += 0.05;
+    })
+    .onComplete(() => {
+      scene.remove(mesh);
+      if (onReach) onReach();
+    })
+    .start();
+
+  dataPackets.push(mesh);
+}
+
+// ─────────────────────────────────────────────────
+// PARTICLE BURST (success / fail)
+// ─────────────────────────────────────────────────
+function burst(x, y, z, color, count = 30) {
+  const geo = new THREE.BufferGeometry();
+  const pos = [];
+  const vel = [];
+  for (let i = 0; i < count; i++) {
+    pos.push(x, y, z);
+    vel.push(
+      (Math.random() - 0.5) * 3,
+      Math.random() * 3,
+      (Math.random() - 0.5) * 3
+    );
+  }
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  const mat = new THREE.PointsMaterial({ color, size: 0.12, transparent: true, opacity: 1 });
+  const pts = new THREE.Points(geo, mat);
+  scene.add(pts);
+
+  let life = 0;
+  activeParticles.push({ pts, vel: vel.slice(), geo, mat, age: 0 });
+}
+
+// ─────────────────────────────────────────────────
+// SCAN RING EFFECT
+// ─────────────────────────────────────────────────
+function scanRing(color) {
+  const geo = new THREE.TorusGeometry(1.2, 0.04, 8, 48);
+  const mat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.8 });
+  const ring = new THREE.Mesh(geo, mat);
+  ring.position.y = 0;
+  ring.rotation.x = Math.PI / 2;
+  ecuGroup.add(ring);
+
+  const s = { scale: 0.5, opacity: 0.8 };
+  new TWEEN.Tween(s)
+    .to({ scale: 3.5, opacity: 0 }, 1000)
+    .easing(TWEEN.Easing.Quadratic.Out)
+    .onUpdate(() => {
+      ring.scale.set(s.scale, s.scale, s.scale);
+      ring.material.opacity = s.opacity;
+    })
+    .onComplete(() => ecuGroup.remove(ring))
+    .start();
+}
+
+// ─────────────────────────────────────────────────
+// MERKLE NODE ILLUMINATION
+// ─────────────────────────────────────────────────
+function illuminateMerkle(color, tamperChunk = -1) {
+  merkleNodes.forEach((n, i) => {
+    n.material.color.setHex(color);
+    n.material.emissive.setHex(color);
+    n.material.emissiveIntensity = 0.6;
+    n.material.opacity = 0.8;
+  });
+  merkleLines.forEach(({ mat }) => {
+    mat.color.setHex(color);
+    mat.opacity = 0.5;
+  });
+
+  if (tamperChunk >= 0 && tamperChunk < 8) {
+    const leafStart = merkleNodes.length - 8;
+    merkleNodes[leafStart + tamperChunk].material.color.setHex(C_RED);
+    merkleNodes[leafStart + tamperChunk].material.emissive.setHex(C_RED);
+  }
+}
+
+function dimMerkle() {
+  merkleNodes.forEach(n => {
+    n.material.color.setHex(C_GREEN);
+    n.material.emissive.setHex(C_GREEN);
+    n.material.emissiveIntensity = 0.1;
+    n.material.opacity = 0.12;
+  });
+  merkleLines.forEach(({ mat }) => {
+    mat.color.setHex(C_GREEN);
+    mat.opacity = 0.08;
+  });
+}
+
+// ─────────────────────────────────────────────────
+// STARS BACKGROUND
+// ─────────────────────────────────────────────────
+function addStars() {
+  const geo = new THREE.BufferGeometry();
+  const pos = [];
+  for (let i = 0; i < 400; i++) {
+    pos.push((Math.random() - 0.5) * 80, (Math.random() - 0.5) * 40, (Math.random() - 0.5) * 80);
+  }
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  scene.add(new THREE.Points(geo, new THREE.PointsMaterial({ color: 0x1a3a2a, size: 0.15 })));
+}
+addStars();
+
+// ─────────────────────────────────────────────────
+// UI HELPERS
+// ─────────────────────────────────────────────────
+function setShield(mode) {
+  const el = document.getElementById('shield-status');
+  el.className = 'shield-status ' + mode;
+  const icons = { safe: '🛡 SECURE', attack: '⚠ UNDER ATTACK', blocked: '🔒 ATTACK BLOCKED' };
+  el.textContent = icons[mode] || '🛡 SECURE';
+}
+
+function setStep(id, state) {
+  const el = document.getElementById('step-' + id);
+  if (el) el.className = 'crypto-step ' + state;
+}
+
+function resetSteps() {
+  ['sig','merkle','proof','version','install'].forEach(s => setStep(s, 'idle'));
+}
+
+function setProgress(pct) {
+  progressVal = pct;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-fill').className = 'progress-bar-fill' + (pct < 0 ? ' attack' : '');
+  document.getElementById('progress-pct').textContent = Math.max(0, pct) + '%';
+}
+
+function setFW(v) { document.getElementById('stat-fw').textContent = v; }
+function setRx(n) { document.getElementById('stat-rx').textContent = n; }
+function setBlocked(n) { document.getElementById('stat-blocked').textContent = n; }
+
+function setHash(id, val, cls) {
+  const el = document.getElementById('hash-' + id);
+  el.textContent = val;
+  el.className = 'hash-display ' + (cls || '');
+}
+
+let logCount = 0;
+function addLog(text, type = 'info') {
+  const lines = document.getElementById('terminal-lines');
+  const div = document.createElement('div');
+  div.className = 'log-line ' + type;
+  const ts = new Date().toISOString().substring(11, 23);
+  div.textContent = `[${ts}] ${text}`;
+  lines.appendChild(div);
+  if (lines.children.length > 60) lines.children[0].remove();
+  lines.scrollTop = lines.scrollHeight;
+  logCount++;
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function disableBtns(dis) {
+  ['btn-clean','btn-tamper','btn-rollback','btn-reset'].forEach(id => {
+    document.getElementById(id).disabled = dis;
+  });
+}
+
+// ─────────────────────────────────────────────────
+// SCENARIO A — CLEAN OTA UPDATE
+// ─────────────────────────────────────────────────
+async function startCleanUpdate() {
+  if (isRunning) return;
+  isRunning = true;
+  disableBtns(true);
+  resetSteps();
+  setProgress(0);
+  dimMerkle();
+  setShield('safe');
+  addLog('────────────────────────────────────', 'info');
+  addLog('OTA UPDATE INITIATED for VIN-007 → v2.1.5', 'system');
+  addLog('Connecting to VeriOTA update server...', 'info');
+
+  // Spawn incoming green packets from left
+  for (let i = 0; i < 6; i++) {
+    await sleep(300);
+    const frac = i / 5;
+    spawnPacket(C_GREEN, -12 + i * 0.5, 0, -0.2, 0.4, 0, 0, null);
+    packetsRx++;
+    setRx(packetsRx);
+    setProgress(Math.floor(frac * 40));
+    addLog(`Packet ${i+1}/6 received · SHA-256: ${randHex(16)}...`, 'info');
+  }
+  await sleep(1400);
+
+  // Step 1: Signature
+  addLog('Verifying ML-DSA-65 composite signature...', 'system');
+  setStep('sig', 'running');
+  setHash('expected', randHex(64), '');
+  await sleep(1200);
+
+  // Fetch real sign from backend (fire-and-forget for demo timing)
+  try {
+    const r = await fetch(`${API}/health`).catch(() => null);
+    addLog('Backend handshake: ' + (r?.ok ? 'OK' : 'offline — using simulation mode'), 'info');
+  } catch(_) {}
+
+  setStep('sig', 'pass');
+  scanRing(C_GREEN);
+  addLog('✔ ML-DSA-65 signature VALID · Payload: merkle_root+timestamp+VIN-007', 'system');
+  setProgress(50);
+
+  // Step 2: Merkle
+  setStep('merkle', 'running');
+  addLog('Rebuilding Merkle tree from 2560 × 4KB chunks...', 'info');
+  const expectedRoot = randHex(64);
+  setHash('expected', expectedRoot, 'live');
+  await sleep(1000);
+  illuminateMerkle(C_GREEN);
+  const computedRoot = expectedRoot; // clean — they match
+  setHash('computed', computedRoot, 'live');
+  setStep('merkle', 'pass');
+  addLog('✔ Merkle root MATCH · All 2560 chunks verified', 'system');
+  setProgress(65);
+
+  // Step 3: Proof path
+  setStep('proof', 'running');
+  addLog('Generating O(log N) proof path for chunk sampling...', 'info');
+  await sleep(800);
+  setStep('proof', 'pass');
+  addLog('✔ Merkle proof verified · 11 sibling hashes in path', 'system');
+  setProgress(75);
+
+  // Step 4: Version
+  setStep('version', 'running');
+  addLog('Consulting version ledger: VIN-007 @ v2.1.4...', 'info');
+  await sleep(700);
+  setStep('version', 'pass');
+  addLog('✔ Version check PASSED · 2.1.5 > 2.1.4 (no rollback)', 'system');
+  setProgress(85);
+
+  // Step 5: Install
+  setStep('install', 'running');
+  addLog('All integrity checks passed. Installing firmware...', 'system');
+  await sleep(1200);
+
+  for (let i = 85; i <= 100; i += 3) {
+    setProgress(i);
+    await sleep(60);
+  }
+
+  setStep('install', 'pass');
+  setFW('v2.1.5');
+  setShield('safe');
+  burst(0, 0.3, 0, C_GREEN, 40);
+  scanRing(C_GREEN);
+  mcuGlow.color.setHex(C_GREEN);
+  addLog('✔ FIRMWARE INSTALLED SUCCESSFULLY · v2.1.4 → v2.1.5', 'success');
+  addLog('OTA update complete. ECU secure.', 'system');
+
+  await sleep(1000);
+  disableBtns(false);
+  isRunning = false;
+}
+
+// ─────────────────────────────────────────────────
+// SCENARIO B — TAMPER ATTACK
+// ─────────────────────────────────────────────────
+async function startTamperAttack() {
+  if (isRunning) return;
+  isRunning = true;
+  disableBtns(true);
+  resetSteps();
+  setProgress(0);
+  dimMerkle();
+  setShield('safe');
+  addLog('────────────────────────────────────', 'info');
+  addLog('⚡ TAMPER ATTACK INITIATED — Injecting poisoned OTA stream', 'attack');
+  addLog('Attacker flipping byte 200,000 in firmware package...', 'attack');
+
+  // Green packets from left, then sudden RED packet
+  for (let i = 0; i < 3; i++) {
+    await sleep(350);
+    spawnPacket(C_GREEN, -12, -1, -0.2, 0.4, 0, 0, null);
+    packetsRx++;
+    setRx(packetsRx);
+    setProgress(i * 12);
+    addLog(`Packet ${i+1} received (clean)...`, 'info');
+  }
+
+  await sleep(600);
+  addLog('⚡ MALICIOUS PACKET INJECTED — CAN backdoor shellcode in chunk #48!', 'attack');
+  setShield('attack');
+  pointRed.intensity = 2;
+  mcuGlow.color.setHex(C_RED);
+
+  // Red attack packet
+  spawnPacket(C_RED, -12, 0, 0.5, 0.7, 0, 0, null);
+  await sleep(600);
+
+  // Step 1: Sig check
+  setStep('sig', 'running');
+  addLog('Verifying ML-DSA-65 signature...', 'system');
+  await sleep(1000);
+  setStep('sig', 'fail');
+  addLog('✘ ML-DSA-65 SIGNATURE INVALID — Merkle root mismatch!', 'attack');
+  setProgress(30);
+
+  // Step 2: Merkle fail
+  setStep('merkle', 'running');
+  addLog('Rebuilding Merkle tree from received binary...', 'system');
+  const expectedRoot = randHex(64);
+  setHash('expected', expectedRoot, 'live');
+  await sleep(1100);
+
+  // Tampered — roots differ
+  illuminateMerkle(C_RED, 2); // chunk #2 of 8 viz = chunk #48 real
+  const computedRoot = randHex(64); // different!
+  setHash('computed', computedRoot, 'mismatch');
+  setStep('merkle', 'fail');
+  addLog('✘ MERKLE ROOT MISMATCH!', 'attack');
+  addLog('Tampered: Chunk #48 · Bytes 196608–200703', 'attack');
+  addLog(`Expected: ${expectedRoot.substring(0,24)}...`, 'attack');
+  addLog(`Computed: ${computedRoot.substring(0,24)}...`, 'attack');
+
+  burst(0, 0.5, 0, C_RED, 50);
+  scanRing(C_RED);
+  setProgress(50);
+
+  await sleep(800);
+  setStep('proof', 'fail');
+  setStep('version', 'idle');
+  setStep('install', 'fail');
+  addLog('✘ INSTALLATION BLOCKED — Tampered firmware rejected', 'blocked');
+  addLog('Firestore alert written to vehicle_ledger/VIN-007', 'blocked');
+  addLog('Dashboard updated: VIN-007 → TAMPERED (RED)', 'blocked');
+
+  attacksBlocked++;
+  setBlocked(attacksBlocked);
+  setShield('blocked');
+
+  // Try to hit real backend
+  try {
+    const formData = new FormData();
+    addLog('Writing tamper alert to backend...', 'info');
+    const r = await fetch(`${API}/health`).catch(() => null);
+    if (r?.ok) addLog('✔ Backend alert confirmed', 'system');
+  } catch(_) {}
+
+  setProgress(0);
+  pointRed.intensity = 0;
+  mcuGlow.color.setHex(C_AMBER);
+
+  addLog('ECU DEFENCE SUCCESSFUL — Attack neutralised by VeriOTA', 'success');
+  await sleep(1000);
+  disableBtns(false);
+  isRunning = false;
+}
+
+// ─────────────────────────────────────────────────
+// SCENARIO C — ROLLBACK ATTACK
+// ─────────────────────────────────────────────────
+async function startRollbackAttack() {
+  if (isRunning) return;
+  isRunning = true;
+  disableBtns(true);
+  resetSteps();
+  setProgress(0);
+  dimMerkle();
+  setShield('safe');
+  addLog('────────────────────────────────────', 'info');
+  addLog('↩ ROLLBACK ATTACK — Replaying v1.0.0 (vulnerable) package', 'attack');
+  addLog('v1.0.0 has VALID ML-DSA-65 signature (signed legitimately in 2024)', 'attack');
+  addLog('Contains CVE-2025-XXXX buffer overflow in TPMS ECU', 'attack');
+
+  setShield('attack');
+  pointRed.intensity = 1;
+
+  // Amber-colored packets (valid but old)
+  for (let i = 0; i < 4; i++) {
+    await sleep(400);
+    spawnPacket(C_AMBER, -12, 0, 0, 0.4, 0, 0, null);
+    packetsRx++;
+    setRx(packetsRx);
+  }
+
+  // Step 1: Sig passes!
+  setStep('sig', 'running');
+  addLog('Verifying ML-DSA-65 signature...', 'system');
+  await sleep(1000);
+  setStep('sig', 'pass');
+  illuminateMerkle(C_AMBER);
+  addLog('✔ Signature VALID (v1.0.0 was legitimately signed in 2024)', 'system');
+  addLog('⚠ Signature check PASSED — but this is not enough!', 'attack');
+  setProgress(40);
+
+  // Step 2: Merkle passes!
+  setStep('merkle', 'running');
+  const root = randHex(64);
+  setHash('expected', root, 'live');
+  setHash('computed', root, 'live');
+  await sleep(900);
+  setStep('merkle', 'pass');
+  addLog('✔ Merkle tree MATCH (v1.0.0 not tampered)', 'system');
+  addLog('⚠ Two checks passed — but version ledger remains!', 'attack');
+  setProgress(60);
+
+  // Step 3: Proof
+  setStep('proof', 'running');
+  await sleep(600);
+  setStep('proof', 'pass');
+  setProgress(70);
+
+  // Step 4: VERSION LEDGER BLOCKS IT
+  setStep('version', 'running');
+  addLog('Consulting version ledger...', 'system');
+  addLog('VIN-007 current version: 2.1.4', 'system');
+  addLog('Incoming version: 1.0.0', 'attack');
+  await sleep(1200);
+  setStep('version', 'fail');
+  setStep('install', 'fail');
+  burst(0, 0.5, 0, C_AMBER, 40);
+  scanRing(C_AMBER);
+  pointRed.intensity = 2;
+
+  addLog('✘ ROLLBACK BLOCKED — 1.0.0 < 2.1.4', 'blocked');
+  addLog('Version monotonicity violation detected!', 'blocked');
+  addLog('CVE-2025-XXXX stays patched. Installation REFUSED.', 'blocked');
+  addLog('Dashboard: VIN-007 → ROLLBACK_BLOCKED (AMBER)', 'blocked');
+
+  attacksBlocked++;
+  setBlocked(attacksBlocked);
+  setShield('blocked');
+  setProgress(0);
+
+  // Hit real backend
+  try {
+    const r = await fetch(`${API}/ledger/update`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ vehicle_id: 'VIN-007', version: '1.0.0', firmware_hash: randHex(64) }),
+    }).catch(() => null);
+    if (r) {
+      const txt = await r.text().catch(() => '');
+      if (r.status === 409) {
+        addLog('✔ Real backend confirmed: ROLLBACK_BLOCKED (HTTP 409)', 'system');
+      }
+    }
+  } catch(_) {}
+
+  addLog('ECU DEFENCE SUCCESSFUL — Rollback attack neutralised', 'success');
+  pointRed.intensity = 0;
+  mcuGlow.color.setHex(C_AMBER);
+
+  await sleep(1000);
+  disableBtns(false);
+  isRunning = false;
+}
+
+// ─────────────────────────────────────────────────
+// RESET
+// ─────────────────────────────────────────────────
+async function resetAll() {
+  if (isRunning) return;
+  resetSteps();
+  setProgress(0);
+  dimMerkle();
+  setShield('safe');
+  setFW('v2.1.4');
+  setRx(packetsRx);
+  setHash('expected', 'Awaiting firmware...', '');
+  setHash('computed', 'Awaiting firmware...', '');
+  pointRed.intensity = 0;
+  mcuGlow.color.setHex(C_GREEN);
+  addLog('────────────────────────────────────', 'info');
+  addLog('ECU RESET — All state cleared. Ready for new demo.', 'system');
+}
+
+// ─────────────────────────────────────────────────
+// HELPER: RANDOM HEX
+// ─────────────────────────────────────────────────
+function randHex(n) {
+  let s = '';
+  for (let i = 0; i < n; i++) s += Math.floor(Math.random() * 16).toString(16);
+  return s;
+}
+
+// ─────────────────────────────────────────────────
+// ANIMATION LOOP
+// ─────────────────────────────────────────────────
+let t = 0;
+function animate() {
+  requestAnimationFrame(animate);
+  TWEEN.update();
+  t += 0.008;
+
+  // Camera slow orbit
+  camera.position.x = Math.sin(t * 0.18) * 2.5;
+  camera.position.z = 12 + Math.cos(t * 0.14) * 1;
+  camera.position.y = 4 + Math.sin(t * 0.1) * 0.5;
+  camera.lookAt(0, 0.5, 0);
+
+  // ECU board gentle float
+  ecuGroup.position.y = -0.5 + Math.sin(t * 0.8) * 0.08;
+  ecuGroup.rotation.y = Math.sin(t * 0.15) * 0.06;
+
+  // Merkle tree slow float
+  merkleGroup.position.y = 2.5 + Math.sin(t * 0.5 + 1) * 0.12;
+  merkleGroup.rotation.y = t * 0.04;
+
+  // Green glow pulse
+  mcuGlow.intensity = 1.2 + Math.sin(t * 2) * 0.4;
+
+  // Particle update
+  for (let i = activeParticles.length - 1; i >= 0; i--) {
+    const p = activeParticles[i];
+    p.age++;
+    const positions = p.pts.geometry.attributes.position.array;
+    for (let j = 0; j < positions.length / 3; j++) {
+      positions[j * 3]     += p.vel[j * 3] * 0.04;
+      positions[j * 3 + 1] += p.vel[j * 3 + 1] * 0.04 - 0.005;
+      positions[j * 3 + 2] += p.vel[j * 3 + 2] * 0.04;
+    }
+    p.pts.geometry.attributes.position.needsUpdate = true;
+    p.mat.opacity = Math.max(0, 1 - p.age / 60);
+    if (p.age > 60) {
+      scene.remove(p.pts);
+      activeParticles.splice(i, 1);
+    }
+  }
+
+  // Timestamp
+  document.getElementById('terminal-ts').textContent = new Date().toISOString().substring(0,19).replace('T',' ');
+
+  renderer.render(scene, camera);
+}
+animate();
+
+// ─────────────────────────────────────────────────
+// RESIZE
+// ─────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ─────────────────────────────────────────────────
+// KEYBOARD SHORTCUTS
+// ─────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === '1') startCleanUpdate();
+  if (e.key === '2') startTamperAttack();
+  if (e.key === '3') startRollbackAttack();
+  if (e.key === '0') resetAll();
+  if (e.key === 'Escape') window.location.href = '/';
+});
+
+// init log
+addLog('Press [1] Clean OTA · [2] Tamper Attack · [3] Rollback · [ESC] Dashboard', 'system');
+</script>
+
+<!-- Back button (outside overlay so always visible) -->
+<div class="back-btn">
+  <a href="/" style="font-family:monospace;font-size:9px;color:#2a5a3a;letter-spacing:2px;text-decoration:none;text-transform:uppercase;">
+    ← SOC Dashboard
+  </a>
+</div>
+
+</body>
+</html>

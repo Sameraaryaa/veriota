@@ -1,0 +1,16 @@
+# Secret files — never commit these
+firebase-service-account.json
+keys/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.pytest_cache/
+*.egg-info/
+
+# Demo generated binaries
+demo/firmware_clean.bin
+demo/firmware_tampered.bin
+demo/signed_metadata.json

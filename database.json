@@ -1,0 +1,585 @@
+{
+  "vehicle_ledger": {
+    "VIN-001": {
+      "vehicle_id": "VIN-001",
+      "current_version": "2.1.4",
+      "current_hash": "641fa07cc5d7425f7b888ae7ce37a8c2c83ac0748fe5cc1eebfb8cd0194724d1",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "bd6434faf79e07e5b781d0e8e7eb57ba1b04708930342975606abca5f531737f",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "9b22c593372b24c5515c3c0528ca1c18f5bce146372719bb6bf7ecd9ede06a89",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "641fa07cc5d7425f7b888ae7ce37a8c2c83ac0748fe5cc1eebfb8cd0194724d1",
+          "installed_at": "2026-04-17T20:58:21.162675+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-002": {
+      "vehicle_id": "VIN-002",
+      "current_version": "2.1.4",
+      "current_hash": "3a271b3c8a252d85df8135644a512737be4ca2692c47f3ae7abcb8158959db3a",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "c519c7d201c80c758f7b9e143475f5f8690453c931776e4f50d015957882de05",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "d527015c02be2a27e3ad705f7705d428e316430d8155c58fa0e28e088f9ecf36",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "3a271b3c8a252d85df8135644a512737be4ca2692c47f3ae7abcb8158959db3a",
+          "installed_at": "2026-04-17T20:58:21.162739+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-003": {
+      "vehicle_id": "VIN-003",
+      "current_version": "2.1.4",
+      "current_hash": "eb07105cafa5403b728ec6dabdcb5c9069501dd9fb9f4349bd2e960be1f73932",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "9a7af82f5c6b6fd2c9b0d94a10d1c8a27c0441a9502fb246c0f59af228437670",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "2b35391bc23fa5b2f1ca8d4ecd0040918a0cba0ab5aaa07a006943fe157417be",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "eb07105cafa5403b728ec6dabdcb5c9069501dd9fb9f4349bd2e960be1f73932",
+          "installed_at": "2026-04-17T20:58:21.162751+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-004": {
+      "vehicle_id": "VIN-004",
+      "current_version": "2.1.4",
+      "current_hash": "ede71057eea8b8417fbdc18761caaadecbd2d1c5d099f339b8d95ac2ad107d1e",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "dc69cc58ec7eac376a581ef7bea730f14c659edb0e193003cfed07c343e04680",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "95247d7a01b51c4ada64fd27aac7e135bf8733d162adcd664e97a80a88e4359b",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "ede71057eea8b8417fbdc18761caaadecbd2d1c5d099f339b8d95ac2ad107d1e",
+          "installed_at": "2026-04-17T20:58:21.162759+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-005": {
+      "vehicle_id": "VIN-005",
+      "current_version": "2.1.4",
+      "current_hash": "36aebaeb0cf2ebfaa3782dffd2885b5bc5c8d42a4bb89d8bb8cf2d17169a618f",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "d033b1a50a8061b64de4014b4884382294887d42118c294d0a240fcfc2a8b30d",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "2ff304a897b2867a726d4163e420753f26bb2c202efa4b3a8bbebb0953028d88",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "36aebaeb0cf2ebfaa3782dffd2885b5bc5c8d42a4bb89d8bb8cf2d17169a618f",
+          "installed_at": "2026-04-17T20:58:21.162766+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-006": {
+      "vehicle_id": "VIN-006",
+      "current_version": "2.1.4",
+      "current_hash": "2df91adede2739c54761b108411b80408597b9933ac603b82a51edb985c805a7",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "cbf817ed6a0a0df260a9cbedec1fc8f202997ea43f2a866530273a25a31d0e43",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "1bdf1ee109387640e550c9f4bac9d9298a031c8499373bca7f1991a2fcc7ca5a",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "2df91adede2739c54761b108411b80408597b9933ac603b82a51edb985c805a7",
+          "installed_at": "2026-04-17T20:58:21.162774+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-007": {
+      "vehicle_id": "VIN-007",
+      "current_version": "2.1.4",
+      "current_hash": "176b62e55f09cffc6f6a30403aefaebd9bbbe67502ca1d9d2b28edb166e7e805",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "d6a1c962d68396ddc42c76c0b4e1dbbca6f7c19a2f3c48a2d35a0db7f19f9428",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "d2f3d6f594b845618a007212a774e1ff4a0966602b1e966a842428bcd9045c15",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "176b62e55f09cffc6f6a30403aefaebd9bbbe67502ca1d9d2b28edb166e7e805",
+          "installed_at": "2026-04-17T20:58:21.162784+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-008": {
+      "vehicle_id": "VIN-008",
+      "current_version": "2.1.4",
+      "current_hash": "540447c5140eb081e86d7d75e21b0ad333ae51c7d80ff2c9810dcea5f703d5c5",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "6442641f5b8378dd1b43fd65a1bb1870568e9e9f86bf73f8f779aa8dab2155be",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "005550a853b302554e1b31ff6ef521935ec30e839c3d28e8c95061def244bd72",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "540447c5140eb081e86d7d75e21b0ad333ae51c7d80ff2c9810dcea5f703d5c5",
+          "installed_at": "2026-04-17T20:58:21.162791+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-009": {
+      "vehicle_id": "VIN-009",
+      "current_version": "2.1.4",
+      "current_hash": "3b209632cffcf0fbd22277c1553e7efb1a03017ac3c4c76ab7c5a023e8282c9d",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "4ccaaf93d48fadf9ae83f5645c1ab0bd19484093e00457fab4b4fd550753a1e9",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "4d38831916696e489af295791a5ca492546e19e5c02241f34be5a2fb729ab618",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "3b209632cffcf0fbd22277c1553e7efb1a03017ac3c4c76ab7c5a023e8282c9d",
+          "installed_at": "2026-04-17T20:58:21.162797+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-010": {
+      "vehicle_id": "VIN-010",
+      "current_version": "2.1.4",
+      "current_hash": "ee6ed37aaf2d9245c0d870ba277b62965a11d7f59dda216922984ff89aaa610a",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "04122c3bc4fbc9620df0f80c444a45fda4dbb4dfa91a24e8e73b96b7ba84f559",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "863d31e67e5f281c9a529ab51171e7ddc84be1aca2a711b7056447067aef458c",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "ee6ed37aaf2d9245c0d870ba277b62965a11d7f59dda216922984ff89aaa610a",
+          "installed_at": "2026-04-17T20:58:21.162806+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-011": {
+      "vehicle_id": "VIN-011",
+      "current_version": "2.1.4",
+      "current_hash": "813cb7c8ebdf89901a95fc2b731a66070398ebd4e0b5139c3d5d3b9e411b94f9",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "e14197343766a64deb25649e244f503887484fade2a9956b8b99810e67ce9e5c",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "b7184e8c8ea8c80908a2027fb9bdd6ea2a3262e7ef847a3fcc405bf596bafde8",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "813cb7c8ebdf89901a95fc2b731a66070398ebd4e0b5139c3d5d3b9e411b94f9",
+          "installed_at": "2026-04-17T20:58:21.162812+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-012": {
+      "vehicle_id": "VIN-012",
+      "current_version": "2.1.4",
+      "current_hash": "eb9b0f0248ba264fec8948e77ecf14928beb7a7246acf26d8c03813ef59a604c",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "d003a45d3b3e9000a6e8feb05cc293749c3302d1860ecb05aa327f472ea9b5e4",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "5571984faa6f634b02239a48c3494c7d75acab86a1e6e7c75cdbc804046e0ce6",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "eb9b0f0248ba264fec8948e77ecf14928beb7a7246acf26d8c03813ef59a604c",
+          "installed_at": "2026-04-17T20:58:21.162819+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-013": {
+      "vehicle_id": "VIN-013",
+      "current_version": "2.1.4",
+      "current_hash": "7db4eb803e3d6bdedf31aa039849dfca723b82410abfbe1182329aa3d57d5702",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "e5f92c332192034aed05525c5d8ccffcad40085ca1bc20a052845016eedb3cb7",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "e693b2c33d7161aab71fd7bae32587914a82e96914fdac9e20d9dea2ce01e9cd",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "7db4eb803e3d6bdedf31aa039849dfca723b82410abfbe1182329aa3d57d5702",
+          "installed_at": "2026-04-17T20:58:21.162829+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-014": {
+      "vehicle_id": "VIN-014",
+      "current_version": "2.1.4",
+      "current_hash": "4bb3274f9e4cd9bfd1b80be4f20529d815c4a54c5a63bba6482d8ce5e4859aee",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "a212eb8aff1a157201fab039fc98b399fdb852dac7a02e889e1f63749c53be72",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "70cb33d86259ff92fdbf4f9333630f6b48bb8809fbd5a8bbb6e95870cfe4f151",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "4bb3274f9e4cd9bfd1b80be4f20529d815c4a54c5a63bba6482d8ce5e4859aee",
+          "installed_at": "2026-04-17T20:58:21.162836+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-015": {
+      "vehicle_id": "VIN-015",
+      "current_version": "2.1.4",
+      "current_hash": "5f64e973d0a18e4fdbcca07c200556b525e9c8abe009ae785c6d6532af027415",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "f12a3b50d9a8b11edcedf7ba3545c0deeb187cb904f8a4d314b84d68f367a960",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "f53ed78115b7145fd92cf1f376f092d0cb09d1c7ada9f0a6250f4bdf6c4dced9",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "5f64e973d0a18e4fdbcca07c200556b525e9c8abe009ae785c6d6532af027415",
+          "installed_at": "2026-04-17T20:58:21.162845+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-016": {
+      "vehicle_id": "VIN-016",
+      "current_version": "2.1.4",
+      "current_hash": "d76abee80e1a06a28b064d2daab65b0ad99aa4112fc14537f7e35cabc54066db",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "48e812764006021d0ac6d9435390dee6932b774c268946bce52e1df69313c2af",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "71160196617b7b39cc6535010f50a0c0e0a0cdfc2f1e8d2510c4d428d851e10b",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "d76abee80e1a06a28b064d2daab65b0ad99aa4112fc14537f7e35cabc54066db",
+          "installed_at": "2026-04-17T20:58:21.162876+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-017": {
+      "vehicle_id": "VIN-017",
+      "current_version": "2.1.4",
+      "current_hash": "95b1e38836e6608ec058b253b894c1c4591bee5f7975db79bb8a1cdf2038f974",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "0f7575339d56b8a4ceec76a1ad64c6bf79de6025f0b8bb41bd7fed36d5ccb6e9",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "2613e230a82552cb86cb60c855787d8c71d2f1b5410db3e62711d450283963c0",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "95b1e38836e6608ec058b253b894c1c4591bee5f7975db79bb8a1cdf2038f974",
+          "installed_at": "2026-04-17T20:58:21.162884+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-018": {
+      "vehicle_id": "VIN-018",
+      "current_version": "2.1.4",
+      "current_hash": "908e5102eaa06875ccde782849b3cd7f8875d2239fed0b6ac164121bb1cb56bf",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "1d7a465ea4025442d178dbb93e6080f7886cf98c25e93fa02bcd096de8ab1c47",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "8cd8d7e1e7d83cfa9ca76689f348a006254a63a880626b5a0cc2aba8952472a9",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "908e5102eaa06875ccde782849b3cd7f8875d2239fed0b6ac164121bb1cb56bf",
+          "installed_at": "2026-04-17T20:58:21.162891+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-019": {
+      "vehicle_id": "VIN-019",
+      "current_version": "2.1.4",
+      "current_hash": "d1f646e4726130325f31902ac03e92a12e45360a4d0a8076b3a0375d3240e48f",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "818dd3e7520963451cc45db1a81c65cc3d50d5968ed80a7ddf41f0b6ad12aed7",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "a6c7c9f5a35964e905f20ccf7da73521635f101ab7a8e79c88ba12adfb171966",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "d1f646e4726130325f31902ac03e92a12e45360a4d0a8076b3a0375d3240e48f",
+          "installed_at": "2026-04-17T20:58:21.162898+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    },
+    "VIN-020": {
+      "vehicle_id": "VIN-020",
+      "current_version": "2.1.4",
+      "current_hash": "1b250893bb762137bbf1c237d80847407b65b9ade9b5c74ed9ad0e584c1febdb",
+      "algorithm": "ML-DSA-65",
+      "nist_standard": "FIPS 204",
+      "status": "QUANTUM_SAFE",
+      "alerts": [],
+      "update_history": [
+        {
+          "version": "1.0.0",
+          "firmware_hash": "bba751687bbd5ac2684290b1f2e17b3ff9214607c6d3d9f6a0e50254f384805b",
+          "installed_at": "2024-01-15T10:00:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.0.0",
+          "firmware_hash": "123224f44a0ce9faf5eda6fcd1f53cb08ead7fcf945467e88cea7e7226773cd7",
+          "installed_at": "2025-06-10T14:30:00+00:00",
+          "status": "QUANTUM_SAFE"
+        },
+        {
+          "version": "2.1.4",
+          "firmware_hash": "1b250893bb762137bbf1c237d80847407b65b9ade9b5c74ed9ad0e584c1febdb",
+          "installed_at": "2026-04-17T20:58:21.162904+00:00",
+          "status": "QUANTUM_SAFE"
+        }
+      ]
+    }
+  },
+  "firmware_releases": {}
+}

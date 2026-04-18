@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Binaries
+demo/firmware_clean.bin
+demo/firmware_tampered.bin
+
+# Environment & Secrets
+.env
+.env.local
+backend/.env
+veriota-hackathon-firebase-adminsdk-*.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+.next/
+out/
+dist/
+
+# Temp
+*.log
+check_fleet.py
+test_sandbox.py
+test_fleet.py
+docx_content.txt
+WSL)
