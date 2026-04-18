@@ -8,6 +8,7 @@ type LogEntry = { time: string; text: string; type: 'info' | 'success' | 'error'
 export default function AttacksPage() {
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const [running, setRunning] = useState(false);
+  const [targetVehicle, setTargetVehicle] = useState('MBZ-EQS-580-001');
 
   const addLog = (text: string, type: LogEntry['type'] = 'info') => {
     const time = new Date().toLocaleTimeString('en-US', { hour12: false });
@@ -96,14 +97,24 @@ export default function AttacksPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Attack Controls */}
         <div className="space-y-4">
-          <div className="font-mono text-[9px] text-slate-500 tracking-[3px] uppercase">
-            EXPLOIT MODULES
+          <div className="font-mono text-[9px] text-slate-500 tracking-[3px] uppercase flex justify-between items-center">
+            <span>EXPLOIT MODULES</span>
+            <div className="flex items-center gap-2">
+              <span className="text-[8px] text-emerald-500">TARGET:</span>
+              <input 
+                type="text" 
+                value={targetVehicle}
+                onChange={(e) => setTargetVehicle(e.target.value)}
+                className="bg-black/50 border border-slate-700/50 rounded px-2 py-1 text-slate-300 text-[10px] w-36 focus:outline-none focus:border-emerald-500 transition-colors uppercase"
+                placeholder="VEHICLE ID"
+              />
+            </div>
           </div>
 
           {/* Tamper Attack */}
           <button
-            onClick={() => runAttack('/api/demo/tamper', 'Firmware Tamper Attack')}
-            disabled={running}
+            onClick={() => runAttack(`/api/demo/tamper?vehicle=${encodeURIComponent(targetVehicle)}`, 'Firmware Tamper Attack')}
+            disabled={running || !targetVehicle}
             className="w-full text-left p-4 rounded-xl border border-red-900/50 bg-red-950/20 hover:bg-red-950/40 hover:border-red-700/60 transition-all disabled:opacity-30 group"
           >
             <div className="flex items-center gap-3">
@@ -123,8 +134,8 @@ export default function AttacksPage() {
 
           {/* Rollback Attack */}
           <button
-            onClick={() => runAttack('/api/demo/rollback', 'Version Rollback Attack')}
-            disabled={running}
+            onClick={() => runAttack(`/api/demo/rollback?vehicle=${encodeURIComponent(targetVehicle)}`, 'Version Rollback Attack')}
+            disabled={running || !targetVehicle}
             className="w-full text-left p-4 rounded-xl border border-amber-900/50 bg-amber-950/20 hover:bg-amber-950/40 hover:border-amber-700/60 transition-all disabled:opacity-30 group"
           >
             <div className="flex items-center gap-3">

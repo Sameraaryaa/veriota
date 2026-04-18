@@ -70,14 +70,32 @@ def update_vehicle_version(vehicle_id: str, version: str, firmware_hash: str):
 
 def log_alert(vehicle_id: str, alert_type: str, detail: dict):
     db = _load_db()
+    now = datetime.now(timezone.utc).isoformat()
     alert = {"type": alert_type, "detail": detail}
-    if vehicle_id in db["vehicle_ledger"]:
-        v = db["vehicle_ledger"][vehicle_id]
-        v["status"] = alert_type
-        if "alerts" not in v:
-            v["alerts"] = []
-        v["alerts"].append(alert)
-        _save_db(db)
+    
+    if vehicle_id not in db["vehicle_ledger"]:
+        # Auto-create if attacker targets a new/unknown vehicle
+        db["vehicle_ledger"][vehicle_id] = {
+            "vehicle_id": vehicle_id,
+            "current_version": "2.1.4",
+            "current_hash": "unknown_baseline",
+            "algorithm": "ML-DSA-65",
+            "status": "QUANTUM_SAFE",
+            "alerts": [],
+            "update_history": [{
+                "version": "2.1.4",
+                "firmware_hash": "unknown_baseline",
+                "installed_at": now,
+                "status": "QUANTUM_SAFE"
+            }]
+        }
+        
+    v = db["vehicle_ledger"][vehicle_id]
+    v["status"] = alert_type
+    if "alerts" not in v:
+        v["alerts"] = []
+    v["alerts"].append(alert)
+    _save_db(db)
 
 def get_all_vehicles() -> list:
     db = _load_db()

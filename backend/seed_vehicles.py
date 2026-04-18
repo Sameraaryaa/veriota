@@ -12,7 +12,13 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from core.firebase_client import _save_db, _load_db
 
-vehicles = [f"VIN-{str(i).zfill(3)}" for i in range(1, 21)]
+# 20 Professional/Realistic Vehicle IDs
+vehicles = [
+    "MBZ-EQS-580-001", "MBZ-EQS-580-002", "MBZ-EQS-580-003", "MBZ-EQS-580-004", "MBZ-EQS-580-005",
+    "BMW-i7-xDrive-01", "BMW-i7-xDrive-02", "BMW-i7-xDrive-03", "BMW-i7-xDrive-04", "BMW-i7-xDrive-05",
+    "AUDI-eTron-GT-01", "AUDI-eTron-GT-02", "AUDI-eTron-GT-03", "AUDI-eTron-GT-04", "AUDI-eTron-GT-05",
+    "TSLA-ModelS-PD-1", "TSLA-ModelS-PD-2", "TSLA-ModelS-PD-3", "TSLA-ModelS-PD-4", "TSLA-ModelS-PD-5"
+]
 
 print(f"Seeding {len(vehicles)} vehicles into Local JSON DB...")
 db = _load_db()
