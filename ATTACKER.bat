@@ -20,12 +20,22 @@ echo   This tool is for AUTHORIZED PENETRATION TESTING ONLY.
 echo  -----------------------------------------------------------
 echo.
 
-set /p SOC_IP="  [*] Enter target SOC IP: "
+set /p SOC_IP="  [*] Enter target SOC IP [default: localhost]: "
+if "%SOC_IP%"=="" set SOC_IP=localhost
 
 echo.
-echo  [*] Scanning %SOC_IP%:8001 ...
-timeout /t 2 /nobreak >nul
-echo  [+] Port 8001 OPEN - FastAPI detected
+echo  [*] Verifying connection to %SOC_IP%:8001 ...
+powershell -Command "try { $c = New-Object System.Net.Sockets.TcpClient('%SOC_IP%', 8001); $c.Close(); exit 0 } catch { exit 1 }"
+if %errorlevel% neq 0 (
+  color 0C
+  echo  [!] ERROR: Cannot reach VeriOTA Backend at %SOC_IP%:8001
+  echo  [!] Ensure START_VERIOTA.bat is running and WSL is responsive.
+  echo.
+  pause
+  exit /b
+)
+
+echo  [+] Port 8001 OPEN - FastAPI connectivity confirmed
 echo  [+] Service: VeriOTA Backend v2.0.0
 echo  [+] Crypto: ML-DSA-65 (FIPS 204) identified
 echo  [+] Defense: Merkle tree integrity active
@@ -70,7 +80,7 @@ echo.
 echo  [!] DEPLOYING tampered firmware to vehicle...
 echo  -----------------------------------------------------------
 echo.
-python demo\tamper_attack.py --api http://%SOC_IP%:8001 --vehicle VIN-007
+python demo\tamper_attack.py --api http://%SOC_IP%:8001 --vehicle TATA-Nexon-EV-001
 echo.
 echo  -----------------------------------------------------------
 echo  [!] Attack complete. Check SOC dashboard for detection.
@@ -92,7 +102,7 @@ echo.
 echo  [!] PUSHING vulnerable firmware to vehicle...
 echo  -----------------------------------------------------------
 echo.
-python demo\rollback_attack.py --api http://%SOC_IP%:8001 --vehicle VIN-012
+python demo\rollback_attack.py --api http://%SOC_IP%:8001 --vehicle TATA-Harrier-EV-05
 echo.
 echo  -----------------------------------------------------------
 echo  [!] Attack complete. Check SOC dashboard for detection.

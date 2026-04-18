@@ -33,16 +33,25 @@ print(f"  Target Vehicle : {args.vehicle}")
 print(f"  Backend API    : {args.api}")
 print()
 
-# Step 1: Sign the clean firmware to get trusted Merkle metadata
-print("[STEP 1] Signing clean firmware with ML-DSA-65 (FIPS 204)...")
-with open(CLEAN_BIN, "rb") as f:
-    sign_res = requests.post(
-        f"{args.api}/sign",
-        files={"firmware": ("firmware_clean.bin", f, "application/octet-stream")},
-        data={"vehicle_id": args.vehicle},
-        timeout=60,
-    )
-sign_res.raise_for_status()
+try:
+    with open(CLEAN_BIN, "rb") as f:
+        sign_res = requests.post(
+            f"{args.api}/sign",
+            files={"firmware": ("firmware_clean.bin", f, "application/octet-stream")},
+            data={"vehicle_id": args.vehicle},
+            timeout=10,
+        )
+    sign_res.raise_for_status()
+except requests.exceptions.ConnectionError:
+    print(f"\n[!] ERROR: Could not connect to API at {args.api}")
+    print(f"[!] Check if VeriOTA Backend is running.")
+    if "localhost" not in args.api:
+        print(f"[!] Tip: Try using --api http://localhost:8001 if running on same machine.")
+    exit(1)
+except Exception as e:
+    print(f"\n[!] FATAL ERROR: {e}")
+    exit(1)
+
 meta = sign_res.json()
 
 print(f"  [+] Algorithm    : {meta.get('algorithm', 'ML-DSA-65')} ({meta.get('nist_standard', 'FIPS 204')})")

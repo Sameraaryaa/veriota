@@ -37,11 +37,21 @@ print()
 
 # Step 1: Confirm vehicle is at v2.1.4
 print(f"[STEP 1] Confirming {args.vehicle} is at v2.1.4 (patched baseline)...")
-setup_res = requests.post(f"{args.api}/ledger/update", json={
-    "vehicle_id": args.vehicle,
-    "version": "2.1.4",
-    "firmware_hash": legacy_firmware_hash,
-}, timeout=30)
+try:
+    setup_res = requests.post(f"{args.api}/ledger/update", json={
+        "vehicle_id": args.vehicle,
+        "version": "2.1.4",
+        "firmware_hash": legacy_firmware_hash,
+    }, timeout=10)
+except requests.exceptions.ConnectionError:
+    print(f"\n[!] ERROR: Could not connect to API at {args.api}")
+    print(f"[!] Ensure VeriOTA Backend is active.")
+    if "localhost" not in args.api:
+        print(f"[!] Tip: Try using --api http://localhost:8001 if running on same machine.")
+    exit(1)
+except Exception as e:
+    print(f"\n[!] FATAL ERROR: {e}")
+    exit(1)
 
 if setup_res.status_code == 200:
     print(f"  [+] {args.vehicle} confirmed at v2.1.4 (status: QUANTUM_SAFE)")
