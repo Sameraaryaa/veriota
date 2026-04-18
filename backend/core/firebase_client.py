@@ -7,12 +7,12 @@ DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 
 def _load_db():
     if not os.path.exists(DB_PATH):
-        return {"vehicle_ledger": {}, "firmware_releases": {}}
+        return {"vehicle_ledger": {}, "firmware_releases": {}, "transparency_log": []}
     try:
         with open(DB_PATH, "r") as f:
             return json.load(f)
     except Exception:
-        return {"vehicle_ledger": {}, "firmware_releases": {}}
+        return {"vehicle_ledger": {}, "firmware_releases": {}, "transparency_log": []}
 
 def _save_db(data):
     # Atomic write to prevent corruption
@@ -100,3 +100,80 @@ def register_firmware_release(version: str, merkle_root: str, merkle_leaves: lis
         "released_by": "OEM_SIGNING_SERVICE",
     }
     _save_db(db)
+
+
+# ── Firmware Transparency Log (Append-Only, Hash-Chained) ────────────────
+import hashlib as _hashlib
+
+def append_to_transparency_log(version: str, firmware_hash: str, merkle_root: str,
+                                signature_hash: str, publisher: str = "OEM_SIGNING_SERVICE"):
+    """
+    Append a new entry to the transparency log. Each entry is hash-chained
+    to the previous one (like a blockchain), making the log tamper-proof.
+    Inspired by Google's Certificate Transparency (RFC 6962).
+    """
+    db = _load_db()
+    if "transparency_log" not in db:
+        db["transparency_log"] = []
+
+    log = db["transparency_log"]
+    prev_hash = log[-1]["entry_hash"] if log else "GENESIS"
+
+    entry = {
+        "sequence": len(log),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "version": version,
+        "firmware_hash": firmware_hash,
+        "merkle_root": merkle_root,
+        "signature_hash": signature_hash,
+        "publisher": publisher,
+        "prev_hash": prev_hash,
+    }
+    # Hash-chain: SHA-256 of the entire entry + prev_hash
+    entry_str = json.dumps(entry, sort_keys=True)
+    entry["entry_hash"] = _hashlib.sha256(entry_str.encode()).hexdigest()
+
+    log.append(entry)
+    _save_db(db)
+    return entry
+
+
+def get_transparency_log() -> list:
+    """Return the full transparency log."""
+    db = _load_db()
+    return db.get("transparency_log", [])
+
+
+def verify_firmware_in_log(firmware_hash: str) -> dict:
+    """
+    Check if a firmware hash exists in the transparency log.
+    Returns match status and the log entry if found.
+    """
+    db = _load_db()
+    log = db.get("transparency_log", [])
+    for entry in log:
+        if entry["firmware_hash"] == firmware_hash:
+            return {"found": True, "entry": entry}
+    return {"found": False, "entry": None}
+
+
+def verify_log_integrity() -> dict:
+    """
+    Verify the entire transparency log's hash chain integrity.
+    If any entry was tampered with, the chain breaks.
+    """
+    db = _load_db()
+    log = db.get("transparency_log", [])
+    if not log:
+        return {"valid": True, "entries": 0, "message": "Log is empty"}
+
+    for i, entry in enumerate(log):
+        expected_prev = log[i - 1]["entry_hash"] if i > 0 else "GENESIS"
+        if entry["prev_hash"] != expected_prev:
+            return {
+                "valid": False,
+                "broken_at": i,
+                "message": f"Hash chain broken at sequence {i}: expected prev_hash {expected_prev[:16]}..., got {entry['prev_hash'][:16]}...",
+            }
+
+    return {"valid": True, "entries": len(log), "message": f"All {len(log)} entries verified. Chain intact."}

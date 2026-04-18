@@ -4,7 +4,7 @@ All routers registered here. CORS enabled for demo cross-origin access.
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import sign, sign_hybrid, verify, ledger, demo, ecu_sim, compliance, sandbox
+from routers import sign, sign_hybrid, verify, ledger, demo, ecu_sim, compliance, sandbox, transparency
 
 app = FastAPI(
     title="VeriOTA — Post-Quantum Automotive OTA Security",
@@ -44,6 +44,9 @@ app.include_router(compliance.router)
 # Pre-Deployment Sandbox (SIL Testing)
 app.include_router(sandbox.router)
 
+# Firmware Transparency Log (Layer 4: Stolen-Key Defense)
+app.include_router(transparency.router)
+
 @app.get("/health")
 async def health():
     from core.dilithium import ALGORITHM, ALGORITHM_DISPLAY
@@ -69,5 +72,9 @@ async def health():
             "threat_model": "GET /api/threat-model",
             "pqm4_benchmarks": "GET /api/benchmarks/pqm4",
             "sandbox_run": "POST /api/sandbox/run",
+            "transparency_publish": "POST /api/transparency/publish",
+            "transparency_log": "GET /api/transparency/log",
+            "transparency_verify": "GET /api/transparency/verify",
+            "transparency_check": "POST /api/transparency/check",
         }
     }

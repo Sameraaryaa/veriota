@@ -52,7 +52,7 @@ async def get_compliance():
                 "status": "ALIGNED",
                 "veriota_implementation": [
                     "TARA (Threat Analysis and Risk Assessment) methodology applied",
-                    "Defense-in-depth: 3 independent security layers",
+                    "Defense-in-depth: 4 independent security layers",
                     "Cryptographic risk mitigation for quantum computing threat",
                     "Continuous monitoring via fleet SOC dashboard",
                 ],
@@ -159,6 +159,18 @@ async def get_threat_model():
                 "veriota_mitigation": "Firmware registration endpoint captures Merkle root at build time. Any post-signing modification is detected by Merkle tree verification even if the signature was applied to the compromised binary.",
                 "defense_layers": ["Merkle Tree Integrity", "Firmware Release Registry"],
             },
+            {
+                "id": "T-006",
+                "name": "Stolen OEM Signing Key",
+                "category": "Integrity / Authentication",
+                "attack_vector": "Insider threat, HSM breach, or state-sponsored key extraction",
+                "description": "Attacker obtains the OEM's ML-DSA-65 private key through insider access or HSM compromise. They can now sign arbitrary malicious firmware that passes all signature checks, Merkle verification, and version checks.",
+                "severity": "CRITICAL",
+                "likelihood": "LOW",
+                "risk_level": "EXTREME",
+                "veriota_mitigation": "Firmware Transparency Log (inspired by Google Certificate Transparency, RFC 6962). Every legitimate firmware release is hash-chained into an append-only log. ECU verifies firmware hash exists in the log before accepting. Stolen-key firmware was never published to the log, so it is REJECTED even with a valid signature.",
+                "defense_layers": ["Firmware Transparency Log", "Hash-Chain Integrity"],
+            },
         ],
         "defense_summary": {
             "layer_1": {
@@ -179,6 +191,12 @@ async def get_threat_model():
                 "mechanism": "Semantic versioning (semver) with strict mathematical ordering",
                 "enforcement": "v_new > v_current required for all updates",
                 "bypass_resistance": "Clock manipulation, replay, and downgrade attacks all blocked",
+            },
+            "layer_4": {
+                "name": "Firmware Transparency Log",
+                "mechanism": "Append-only, hash-chained log of all published firmware (RFC 6962 inspired)",
+                "defense": "Even with a stolen signing key, firmware not in the log is rejected",
+                "integrity": "Each entry is SHA-256 chained to the previous — log tampering breaks the chain",
             },
         },
     }
