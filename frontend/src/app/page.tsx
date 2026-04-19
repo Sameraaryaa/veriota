@@ -16,6 +16,7 @@ export default function Dashboard() {
   const [cryptoInfo, setCryptoInfo] = useState<any>(null);
   const prevVehiclesRef = useRef<any[]>([]);
   const [showPiTooltip, setShowPiTooltip] = useState(false);
+  const [isMigrationMode, setIsMigrationMode] = useState(false);
   const [summary, setSummary] = useState({
     total: 0,
     quantum_safe: 0,
@@ -110,10 +111,12 @@ export default function Dashboard() {
           <div>
             <h1 className="text-2xl font-black tracking-widest text-emerald-50 uppercase flex items-center gap-2">
               Veri<span className="text-emerald-500">OTA</span> 
-              <span className="text-[10px] font-mono tracking-normal bg-emerald-900/50 text-emerald-400 px-2 py-0.5 rounded border border-emerald-800">PRO-SOC_v2</span>
+              <span className={`text-[10px] font-mono tracking-normal px-2 py-0.5 rounded border ${isMigrationMode ? 'bg-indigo-900/50 text-indigo-400 border-indigo-800' : 'bg-emerald-900/50 text-emerald-400 border-emerald-800'}`}>
+                {isMigrationMode ? 'MIGRATION_SOC_v2' : 'PRO-SOC_v2'}
+              </span>
             </h1>
-            <p className="text-[11px] font-mono text-emerald-600 uppercase tracking-widest mt-1">
-              FIPS-204 M-LWE Cryptographic Matrix
+            <p className={`text-[11px] font-mono uppercase tracking-widest mt-1 ${isMigrationMode ? 'text-indigo-500' : 'text-emerald-600'}`}>
+              {isMigrationMode ? 'Hybrid Matrix: RSA-2048 + ML-DSA-65' : 'FIPS-204 M-LWE Cryptographic Matrix'}
             </p>
           </div>
         </div>
@@ -148,8 +151,8 @@ export default function Dashboard() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-4 flex flex-wrap items-center gap-2 px-3 py-2 rounded-lg bg-emerald-950/30 border border-emerald-900/30 relative"
         >
-          <span className="text-[9px] font-mono bg-emerald-900/50 text-emerald-400 px-2 py-0.5 rounded border border-emerald-800">
-            {cryptoInfo.algorithm}
+          <span className={`text-[9px] font-mono px-2 py-0.5 rounded border ${isMigrationMode ? 'bg-indigo-900/50 text-indigo-300 border-indigo-800' : 'bg-emerald-900/50 text-emerald-400 border-emerald-800'}`}>
+            {isMigrationMode ? 'ML-DSA-65 + RSA-2048' : cryptoInfo.algorithm}
           </span>
           <span className="text-[9px] font-mono bg-cyan-900/40 text-cyan-400 px-2 py-0.5 rounded border border-cyan-800">
             {cryptoInfo.nist_standard}
@@ -198,6 +201,8 @@ export default function Dashboard() {
           </div>
           <DemoControlPanel 
             onLog={(msg, type) => addLog(msg, type as any)} 
+            isMigrationMode={isMigrationMode}
+            setMigrationMode={setIsMigrationMode}
           />
         </div>
 

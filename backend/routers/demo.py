@@ -111,3 +111,22 @@ async def trigger_transparency_bypass():
 async def trigger_reset():
     """Stream: Reset fleet database — reseed all vehicles to QUANTUM_SAFE at v2.1.4."""
     return await _stream_script("seed_vehicles.py", [])
+
+@router.post("/wireshark")
+async def launch_wireshark():
+    """Launch Wireshark using a generic background process."""
+    try:
+        is_windows = (os.name == 'nt')
+        script_name = "LAUNCH_WIRESHARK.bat" if is_windows else "launch_wireshark.sh"
+        script_path = os.path.join(os.path.dirname(BACKEND_DIR), script_name)
+        
+        if os.path.exists(script_path):
+            if not is_windows:
+                os.chmod(script_path, 0o755)
+            
+            subprocess.Popen([script_path], shell=True)
+            return {"status": "LAUNCHING_WIRESHARK", "msg": f"Wireshark starting via {script_name}..."}
+        else:
+            return {"status": "ERROR", "msg": f"{script_name} not found at {script_path}."}
+    except Exception as e:
+        return {"status": "ERROR", "msg": str(e)}

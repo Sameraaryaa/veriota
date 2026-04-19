@@ -4,7 +4,7 @@ All routers registered here. CORS enabled for demo cross-origin access.
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import sign, sign_hybrid, verify, ledger, demo, ecu_sim, compliance, sandbox, transparency, crypto_info
+from routers import sign, sign_hybrid, verify, ledger, demo, ecu_sim, compliance, sandbox, transparency, crypto_info, delta_update, key_rotation
 
 app = FastAPI(
     title="VeriOTA — Post-Quantum Automotive OTA Security",
@@ -37,6 +37,8 @@ app.include_router(ledger.router)
 # Demo & Simulation APIs
 app.include_router(demo.router)
 app.include_router(ecu_sim.router)
+app.include_router(delta_update.router)
+app.include_router(key_rotation.router)
 
 # Compliance & Threat Intelligence
 app.include_router(compliance.router)

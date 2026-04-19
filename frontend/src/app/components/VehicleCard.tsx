@@ -59,7 +59,7 @@ export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
 
   return (
     <>
-      <motion.div 
+      <motion.div
         layout
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -115,7 +115,7 @@ export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
       <AnimatePresence>
         {modalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
@@ -218,6 +218,28 @@ export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
                           <div className="flex items-center gap-2 text-[9px] bg-black/20 rounded px-3 py-1.5">
                             <span className="text-slate-500">Received FW Hash:</span>
                             <span className="text-slate-400 break-all">{d.firmware_hash_received.substring(0, 32)}...</span>
+                          </div>
+                        )}
+
+                        {/* CAN Bus Anomaly Simulation */}
+                        {alert.type === "TAMPERED" && (
+                          <div className="mt-4 border border-red-900/50 bg-black/60 rounded p-3 relative overflow-hidden">
+                            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-red-900/20 via-transparent to-transparent opacity-50 pointer-events-none" />
+                            <div className="text-[9px] text-red-500 font-bold uppercase tracking-widest mb-2 flex items-center gap-2 relative z-10">
+                              <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-ping" />
+                              Simulated CAN Bus Payload (If Executed)
+                            </div>
+                            <div className="space-y-1 font-mono text-[9px] text-red-400/80 relative z-10 bg-black/40 p-2 rounded border border-red-950/50">
+                              <div className="opacity-40">[0.001s] CAN-ACT ID:0x1A4  FF FF FF FF - ALIVE_TICK_OK</div>
+                              <div className="text-red-300 font-bold bg-red-900/30 px-1">[0.014s] CAN-ACT ID:0x1A4  FF 00 00 00 - S_BRAKE_CMD_INJECT</div>
+                              <div className="opacity-40">[0.015s] CAN-SEN ID:0x2B1  01 04 A1 00 - WHEEL_SPEED_SENSE</div>
+                              <div className="text-red-300 font-bold bg-red-900/30 px-1">[0.030s] CAN-ACT ID:0x1A4  00 FF 00 00 - ENGINE_CUTOFF_CMD</div>
+                              <div className="opacity-40">[0.045s] CAN-SYS ID:0x3C2  99 AA BB CC - BATTERY_TELEMETRY</div>
+                              <div className="text-red-300 font-bold bg-red-900/30 px-1">[0.051s] CAN-ACT ID:0x1A4  00 00 FF 00 - STEER_LOCK_ENGAGE</div>
+                              <div className="text-red-500 mt-2 border-t border-red-900/50 pt-1">
+                                [!] CATASTROPHIC FAILURE MODE AVERTED BY VERIOTA
+                              </div>
+                            </div>
                           </div>
                         )}
                       </div>

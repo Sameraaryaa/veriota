@@ -22,7 +22,7 @@ export default function AttacksPage() {
         setVehicles(vList);
         if (vList.length > 0) setTargetVehicle(vList[0].vehicle_id);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   useEffect(() => {
@@ -60,8 +60,8 @@ export default function AttacksPage() {
                 const data = JSON.parse(line.slice(5));
                 const type = data.status === 'error' ? 'error'
                   : data.status === 'complete' ? 'success'
-                  : data.status === 'blocked' ? 'warning'
-                  : 'info';
+                    : data.status === 'blocked' ? 'warning'
+                      : 'info';
                 addLog(data.message || data.step || JSON.stringify(data), type);
               } catch { addLog(line.slice(5), 'info'); }
             }
@@ -205,11 +205,10 @@ export default function AttacksPage() {
                   key={v.vehicle_id}
                   onClick={() => { setTargetVehicle(v.vehicle_id); setShowCustom(false); }}
                   disabled={running}
-                  className={`relative px-3 py-2 rounded border text-[10px] transition-all disabled:opacity-40 ${
-                    selected
+                  className={`relative px-3 py-2 rounded border text-[10px] transition-all disabled:opacity-40 ${selected
                       ? 'border-red-700/60 bg-red-950/20 text-red-400'
                       : 'border-slate-800/60 bg-slate-900/20 text-slate-500 hover:text-slate-300 hover:border-slate-700'
-                  }`}
+                    }`}
                 >
                   {selected && <div className="absolute inset-x-0 top-0 h-px bg-red-500" />}
                   <div className="flex items-center gap-2">
@@ -225,11 +224,10 @@ export default function AttacksPage() {
             <button
               onClick={() => setShowCustom(!showCustom)}
               disabled={running}
-              className={`px-3 py-2 rounded border text-[10px] transition-all disabled:opacity-40 ${
-                showCustom
+              className={`px-3 py-2 rounded border text-[10px] transition-all disabled:opacity-40 ${showCustom
                   ? 'border-slate-600 bg-slate-900/40 text-slate-300'
                   : 'border-dashed border-slate-800 text-slate-700 hover:text-slate-400 hover:border-slate-700'
-              }`}
+                }`}
             >
               + Custom ID
             </button>
@@ -333,9 +331,9 @@ export default function AttacksPage() {
                       <span className="text-slate-700 flex-shrink-0 select-none">{log.time}</span>
                       <span className={
                         log.type === 'error' ? 'text-red-400' :
-                        log.type === 'success' ? 'text-emerald-400' :
-                        log.type === 'warning' ? 'text-amber-400' :
-                        'text-slate-500'
+                          log.type === 'success' ? 'text-emerald-400' :
+                            log.type === 'warning' ? 'text-amber-400' :
+                              'text-slate-500'
                       }>
                         {log.text}
                       </span>
